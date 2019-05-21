@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var DButilsAzure = require('./DButils');
+var body = require('body-parser');
 
 var port = 3000;
 app.listen(port, function () {
@@ -32,11 +33,34 @@ app.get('/getPOIInfo/:id', function(req, res) {
 });
 
 // login
-app.post("/login/:username/:password", (req, res) => {
-    let inputUserName = req.params.username;
-    let inputPassword = req.params.password;
+app.post("/login", (req, res, next) => {
+    let inputUserName = req.body.UserName;
+    // let inputPassword = req.body.Password;
+    console.log(inputUserName);
     let legalUser = false;
-    DButilsAzure.execQuery("SELECT UserName, Password FROM Users")
+    // DButilsAzure.execQuery("SELECT UserName, Passwo  rd FROM Users")
+    //     .then(function(result){
+    //         for (let i = 0; i < result.length; i++) {
+    //             if (result[i].UserName === inputUserName
+    //                 && result[i].Password === inputPassword) {
+    //                 legalUser = true;
+    //             }
+    //         }
+    //         res.send(legalUser);
+    //     })
+    //     .catch(function(err){
+    //         console.log(err);
+    //         res.send(err)
+    //     })
+});
+
+// restorePassword
+app.post("/restorePassword/:username/:question/:answer", (req, res) => {
+    let inputUserName = req.params.username;
+    let inputQuestion = req.params.question;
+    let inputAnswer = req.params.answer;
+    let legalUser = false;
+    DButilsAzure.execQuery("SELECT UserName, Question, Answer, Password FROM Users")
         .then(function(result){
             for (let i = 0; i < result.length; i++) {
                 if (result[i].UserName === inputUserName
