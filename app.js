@@ -162,13 +162,14 @@ app.use("/private", (req, res, next) => {
 // get2PopularPOI - DONE
 app.get('/private/get2PopularPOI', (req, res) => {
     DButilsAzure.execQuery(
-        "select * " +
-        "from Points " +
-        "where ID in (select top 2 ID " +
-        "from Points as p, UsersCategories as uc " +
-        "where uc.CategoryID = p.CategoryID " +
-        "and uc.UserID = " + req.decoded.username +
-        " order by p.ViewersNumber desc)")
+        "SELECT p1.ID, p1.CategoryID, p1.Image, p1.Image, " +
+        "p1.ViewersNumber, p1.Description, p1.Rank " +
+        "FROM Points as p1, UsersCategories as uc " +
+        "WHERE p1.CategoryID = uc.CategoryID " +
+        "AND p1.ViewersNumber >= all (SELECT p2.ViewersNumber " +
+        "FROM Points p2 " +
+        "WHERE p1.CategoryID = p2.CategoryID) " +
+        "AND uc.UserID = '" + req.decoded.id + "'")
         .then(function(result){
             res.send(result)
         })
