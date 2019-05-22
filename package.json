@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dateformat": "^3.0.3",
     "express": "^4.17.0",
+    "jsonwebtoken": "^8.5.1",
     "tedious": "^6.1.1",
     "tedious-connection-pool": "^1.0.5"
   }

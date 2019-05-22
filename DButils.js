@@ -8,7 +8,6 @@ var poolConfig = {
     log: true
 };
 
-// TODO: edit this
 var connectionConfig = {
     userName: 'admin1',
     password: 'Abcd1234',
