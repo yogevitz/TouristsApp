@@ -40,7 +40,7 @@ app.post("/login", (req, res) => {
         })
 });
 
-// register - get new user ID - DONE
+// register - get new user ID
 app.use("/register", (req, res, next) => {
     var newUserID;
     DButilsAzure.execQuery(
@@ -56,7 +56,7 @@ app.use("/register", (req, res, next) => {
         });
 });
 
-// register - add user to the Users table - DONE
+// register - add user to the Users table
 app.post("/register", (req, res, next) => {
     let newUserID = req.userID;
     let inputUserName = req.body.UserName;
@@ -95,7 +95,7 @@ app.post("/register", (req, res, next) => {
         })
 });
 
-// register - add categories to UsersCategories - DONE
+// register - add categories to UsersCategories
 app.post("/register", (req, res, next) => {
     let newUserID = req.userID;
     let inputCategoriesList = req.body.CategoriesList;
@@ -118,7 +118,7 @@ app.post("/register", (req, res, next) => {
         })
 });
 
-// restorePassword - DONE
+// restorePassword
 app.post("/restorePassword", (req, res) => {
     let inputUserName = req.body.UserName;
     let inputQuestion = req.body.Question;
@@ -138,13 +138,7 @@ app.post("/restorePassword", (req, res) => {
         })
 });
 
-
-
-
-
-// ----------------------------------------------------------------------------------------
-
-// check token from private requests - DONE
+// check token from private requests
 app.use("/private", (req, res, next) => {
     const token = req.header("x-auth-token");
     if (!token) {
@@ -156,10 +150,9 @@ app.use("/private", (req, res, next) => {
     } catch (exception) {
         res.status(400).send("Invalid token.");
     }
-
 });
 
-// get2PopularPOI - DONE
+// get2PopularPOI
 app.get('/private/get2PopularPOI', (req, res) => {
     DButilsAzure.execQuery(
         "SELECT p1.ID, p1.CategoryID, p1.Image, p1.Image, " +
@@ -179,7 +172,7 @@ app.get('/private/get2PopularPOI', (req, res) => {
         })
 });
 
-// getAllUsers - DONE
+// getAllUsers
 app.get('/private/getAllUsers', (req, res) => {
     if (!req.decoded.admin) {
         res.status(401).send("Access denied. Not an admin.");
@@ -194,7 +187,7 @@ app.get('/private/getAllUsers', (req, res) => {
         })
 });
 
-// get2LastSavedPOI - DONE
+// get2LastSavedPOI
 app.get('/private/get2LastSavedPOI', (req, res) => {
     DButilsAzure.execQuery(
         "SELECT top 2 * " +
@@ -210,7 +203,7 @@ app.get('/private/get2LastSavedPOI', (req, res) => {
         })
 });
 
-// getUserFavPOIList - DONE
+// getUserFavPOIList
 app.get('/private/getUserFavPOIList', (req, res) => {
     DButilsAzure.execQuery(
         "SELECT * " +
@@ -225,7 +218,7 @@ app.get('/private/getUserFavPOIList', (req, res) => {
         })
 });
 
-// setUserSavedPOIList - DONE
+// setUserSavedPOIList
 app.post("/private/setUserSavedPOIList", (req, res) => {
     let userID = req.decoded.id;
     let inputPointsList = req.body.Points;
@@ -300,13 +293,7 @@ app.post("/private/addReview", (req, res) => {
         })
 });
 
-// ----------------------------------------------------------------------------------------
-
-
-
-
 // getPOIInfo
-// TODO: Return the two most recent reviews
 app.get('/getPOIInfo/:id', (req, res) => {
     DButilsAzure.execQuery(
         "SELECT * " +
@@ -321,7 +308,23 @@ app.get('/getPOIInfo/:id', (req, res) => {
         })
 });
 
-// getCategoryIDByCategoryName - DONE
+// getPOI2RecentReviews
+app.get('/getPOI2RecentReviews/:id', (req, res) => {
+    DButilsAzure.execQuery(
+        "SELECT top 2 * " +
+        "FROM Reviews " +
+        "WHERE PointID = '" + req.params.id + "' " +
+        "ORDER BY Date desc")
+        .then(function(result){
+            res.send(result)
+        })
+        .catch(function(err){
+            console.log(err);
+            res.send(err)
+        })
+});
+
+// getCategoryIDByCategoryName
 app.get('/getCategoryIDByCategoryName/:name', (req, res) => {
     DButilsAzure.execQuery(
         "SELECT ID " +
@@ -336,7 +339,7 @@ app.get('/getCategoryIDByCategoryName/:name', (req, res) => {
         })
 });
 
-// getCategoryPOIs - DONE
+// getCategoryPOIs
 app.get('/getCategoryPOIs/:categoryID', (req, res) => {
     DButilsAzure.execQuery(
         "SELECT * " +
@@ -349,34 +352,9 @@ app.get('/getCategoryPOIs/:categoryID', (req, res) => {
             console.log(err);
             res.send(err)
         })
-
-    // let categoryID = 0;
-    // DButilsAzure.execQuery(
-    //     "SELECT ID " +
-    //     "FROM Categories " +
-    //     "WHERE Name = " + req.params.categoryName)
-    //     .then((result) => {
-    //         categoryID = result;
-    //     })
-    //     .then((categoryID) => {
-    //         DButilsAzure.execQuery(
-    //             "SELECT * " +
-    //             "FROM Points " +
-    //             "Where ID = " + categoryID)
-    //             .then((result2) => {
-    //                 res.send(result2)
-    //             })
-    //     })
-    //     .catch(function(err){
-    //         console.log(err);
-    //         res.send(err);
-    //     });
-
-
-
 });
 
-// getAllCategories - DONE
+// getAllCategories
 app.get('/getAllCategories', (req, res) => {
     DButilsAzure.execQuery(
         "SELECT Name " +
@@ -390,7 +368,7 @@ app.get('/getAllCategories', (req, res) => {
         })
 });
 
-// getPOIListByName - DONE
+// getPOIListByName
 app.get('/getPOIListByName/:name', (req, res) => {
     DButilsAzure.execQuery(
         "SELECT * " +
@@ -405,7 +383,7 @@ app.get('/getPOIListByName/:name', (req, res) => {
         })
 });
 
-// get3RandomPOIs - DONE
+// get3RandomPOIs
 app.get('/get3RandomPOIs', (req, res) => {
     DButilsAzure.execQuery(
         "SELECT * " +
