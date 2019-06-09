@@ -11,8 +11,9 @@ var poolConfig = {
 var connectionConfig = {
     userName: 'admin1',
     password: 'Abcd1234',
-    server: 'assignment3yogevitay.database.windows.net',
-    options: { encrypt: true, database: 'Assignment3db' }
+    server: 'touristsappdb.database.windows.net',
+    options: { encrypt: true, database: 'TouristsApp'},
+    debug: true
 };
 
 //create the pool
@@ -21,7 +22,6 @@ var pool = new ConnectionPool(poolConfig, connectionConfig);
 pool.on('error', function (err) {
     if (err) {
         console.log(err);
-
     }
 });
 console.log('pool connection on');

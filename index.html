@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tourists App</title>
+</head>
+<body ng-app="myApp">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+    <script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
+    <!-- load app -->
+    <script src="frontapp.js"></script>
+
+    <!-- load controllers -->
+    <script src="pages/about/aboutController.js"></script>
+    <script src="pages/poi/poiController.js"></script>
+    <script src="pages/http/httpController.js"></script>
+
+    <!-- the website -->
+    <h1>My Website</h1>
+
+    <!-- menu -->
+    <ul>
+        <li>
+            <a href="#!">Home</a>
+        </li>
+        <li>
+            <a href="#!about">About</a>
+        </li>
+        <li>
+            <a href="#!poi">POI</a>
+        </li>
+        <li>
+            <a href="#!httpRequest">POI</a>
+        </li>
+    </ul>
+
+    <!-- This section changes as the hashbang changes -->
+    <div ng-view></div>
+</body>
+</html>
