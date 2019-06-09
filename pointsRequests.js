@@ -25,9 +25,9 @@ exports.get2PopularPOI = (req, res) => {
 exports.get2LastSavedPOI = (req, res) => {
     DButilsAzure.execQuery(
         "SELECT top 2 * " +
-        "FROM UsersPoints " +
-        "WHERE UserID = " + req.decoded.username +
-        "ORDER BY Date desc")
+        "FROM UsersPoints as up " +
+        "WHERE up.UserID = '" + req.decoded.id + "' " +
+        "ORDER BY up.Date desc")
         .then(function(result){
             res.send(result)
         })
@@ -42,7 +42,7 @@ exports.getUserFavPOIList = (req, res) => {
     DButilsAzure.execQuery(
         "SELECT * " +
         "FROM UsersPoints " +
-        "WHERE UserID = " + req.decoded.username)
+        "WHERE UserID = '" + req.decoded.username + "'")
         .then(function(result){
             res.send(result)
         })
@@ -68,7 +68,7 @@ exports.setUserSavedPOIList = (req, res) => {
     DButilsAzure.execQuery(
         "INSERT INTO UsersPoints" +
         "(UserID,PointID,Date) " +
-        "VALUES " + valuesToInsert)
+        "VALUES '" + valuesToInsert + "'")
         .then(function(result){
             res.status(200).send({ result: "Points Added Successfully." });
         })
@@ -84,7 +84,7 @@ exports.getPOIInfo = (req, res) => {
     DButilsAzure.execQuery(
         "SELECT * " +
         "FROM Points " +
-        "WHERE id = " + req.params.id)
+        "WHERE id = '" + req.params.id + "'")
         .then(function(result){
             res.send(result)
         })

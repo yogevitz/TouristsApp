@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Tourists App</title>
+    <link rel="stylesheet" type="text/css" href="mainstylesheet.css">
 </head>
-<body ng-app="myApp">
+<body ng-app="myApp" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
     <script src="https://code.angularjs.org/1.7.8/angular-route.js"></script>
     <!-- load app -->
@@ -16,24 +19,31 @@
     <script src="pages/http/httpController.js"></script>
 
     <!-- the website -->
-    <h1>My Website</h1>
+    <div class="jumbotron text-center">
 
-    <!-- menu -->
-    <ul>
-        <li>
-            <a href="#!">Home</a>
-        </li>
-        <li>
-            <a href="#!about">About</a>
-        </li>
-        <li>
-            <a href="#!poi">POI</a>
-        </li>
-        <li>
-            <a href="#!httpRequest">POI</a>
-        </li>
-    </ul>
+        <h1>My Website</h1>
 
+        <!-- menu -->
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="#!">Home</a>
+                </li>
+                <li>
+                    <a href="#!about">About</a>
+                </li>
+                <li>
+                    <a href="#!poi">POI</a>
+                </li>
+                <li>
+                    <a href="#!httpRequest">POI</a>
+                </li>
+                <li>
+                    <a href="#!login">login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <!-- This section changes as the hashbang changes -->
     <div ng-view></div>
 </body>
