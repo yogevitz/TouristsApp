@@ -1,7 +1,47 @@
-<h2>About</h2>
-
+<!--<h2>About</h2>-->
+<!---->
 <!-- display button functionality -->
-<div>
-    <button ng-click="myFunc()">Click Me!</button>
-    <p>This button has been clicked {{ btnCount }} times.</p>
+<!--<div>-->
+<!--    <button ng-click="myFunc()">Click Me!</button>-->
+<!--    <p>This button has been clicked {{ btnCount }} times.</p>-->
+<!--</div>-->
+<div class="container" align="center">
+    <div>
+        <p><b>Our site describes the most beautiful and romantic city in the world, that is Rome.</b>
+            </br>
+            Rome is the capital of Italy. The city is spread across the two banks of the Tiber River in the Lazio region.
+        </p>
+    </div>
+    <div>
+         <span align="right" ng-repeat="(id, currentImage) in abtCtrl.images">
+            <b> <span ng-bind="currentImage.name"></span> </b> <img align="center" ng-src="{{ currentImage.image }}">
+        </span>
+    </div>
+    <div>
+        <p>
+            In the past it was the capital of the Roman Empire, which controlled large areas in Europe and around the
+            Mediterranean Sea. After the collapse of the empire, Rome continued to serve as the center of the Roman Catholic
+            religion, as well as a cultural, economic and especially world-class cultural center.
+        </p>
+    </div>
+    <div>
+        <p>
+            Rome itself has 2.7 million inhabitants. In the surrounding cities, another one million residents live. The city
+            center is spread out between seven hills east of Tiber. On the other side of the river is the Vatican Hill, which
+            also belongs to Rome. Around the crowded center lie suburban areas within an enormous radius of the city. Among
+            the suburbs are agricultural fields and many open areas, some within a few kilometers of the center.
+        </p>
+    </div>
+    <div>
+        <span> <b> These are the most divided and tourist spots in Rome: </b> </span>
+        </br>
+    </div>
+    <div>
+        <span align="right" ng-repeat="(id, currentImage) in abtCtrl.cityImages">
+        <b><span ng-bind="currentImage.name"></span></b>
+            </br>
+            <img align="center" ng-src="{{ currentImage.image }}" style="width: 50%; height: 50%;">
+            </br>
+    </span>
+    </div>
 </div>
