@@ -3,8 +3,11 @@ angular.module("myApp")
 .controller("poiController", function ($scope) {
     self = this;
     self.cities = {
-        1: {name:"Paris", state: "France", image: "https://media-cdn.tripadvisor.com/media/photo-s/0d/f5/7c/f2/eiffel-tower-priority.jpg"},
-        2: {name:"Jerusalem", state: "Israel", image: "https://cdni.rt.com/files/2017.12/article/5a3fe04efc7e93cd698b4567.jpg"},
-        3: {name:"London", state: "England", image: "http://www.ukguide.co.il/Photos/England/London/British-Royal-Tour.jpg"}
+        1: {name:"Colosseum", description: "The Colosseum and the Arch of Constantine", image: "images/Colosseum.jpg"},
+        2: {name:"Vatican City", description: "The smallest independent state in the world", image: "images/Vatican.jpg"},
+        3: {name:"Borghese Gallery", description: "Big art park", image: "images/Borghese.jpg"},
+        4: {name:"Capitoline Museums", description: "Beautiful museum", image: "images/Capitoline.jpg"},
+        5: {name:"Tonnarello", description: "Best restaurant in Rome", image: "images/Tonnarello.jpg"},
+        6: {name:"Stadio Olimpico", description: "Olympic stadium at the center of Rome", image: "images/Stadio.jpg"}
     }
 });
