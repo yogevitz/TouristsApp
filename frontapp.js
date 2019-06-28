@@ -32,6 +32,14 @@ app.config(function($routeProvider) {
             templateUrl: 'pages/login/login.html',
             controller : 'loginController as loginCtrl'
         })
+        .when('/home', {
+            templateUrl: 'pages/home/home.html',
+            controller : 'homeController as homeCtrl'
+        })
+        .when('/restorePassword', {
+            templateUrl: 'pages/restorePassword/restorePassword.html',
+            controller : 'restorePasswordController as restorePasswordCtrl'
+        })
         // other
         .otherwise({ redirectTo: '/' });
 });
