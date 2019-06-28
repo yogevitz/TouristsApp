@@ -1,20 +1,43 @@
+<!--<link rel="stylesheet" type="text/css" href="/home.css">-->
 <style>
-    p{
-        font-size: large;
+    .explore {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-spacing: 10px;
+    }
+    .exploreImage {
+        display: table-cell;
+        background-color: #b9ffda;
+    }
+    img {
+        max-width:90%;
+        max-height:90%;
     }
 </style>
-<div class="formHomePage">
-    <form>
-        <div align="center" class="container">
-            <h2><b>Hello Guest</b></h2>
-            <div>
-                <b><label>Sign In</label></b>
-                <p>You already have a user? <a href="#!login">Log In!</a></p>
+
+<div class="formHomePaged">
+    <div align="center" class="container">
+        <h2><b>Hello Guest</b></h2>
+        <div>
+            <p>Have a user? <a href="#!login">Log In!</a></p>
+        </div>
+        <div>
+            <p>Not registered yet? <a href="#!register">Sign Up!</a></p>
+        </div>
+        <div class="explore">
+            <div class="exploreImage">
+                <h4>Colosseum</h4>
+                <img src="images/Colosseum.jpg">
             </div>
-            <div>
-                <b><label>Sign Up</label></b>
-                <p>You don't have a user? <a href="#!register">Sign Up!</a></p>
+            <div class="exploreImage">
+                <h4>Vatican</h4>
+                <img src="images/Vatican.jpg">
+            </div>
+            <div class="exploreImage">
+                <h4>Capitoline</h4>
+                <img src="images/Capitoline.jpg">
             </div>
         </div>
-    </form>
+    </div>
 </div>

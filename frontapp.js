@@ -32,10 +32,6 @@ app.config(function($routeProvider) {
             templateUrl: 'pages/login/login.html',
             controller : 'loginController as loginCtrl'
         })
-        .when('/home', {
-            templateUrl: 'pages/home/home.html',
-            controller : 'homeController as homeCtrl'
-        })
         // other
         .otherwise({ redirectTo: '/' });
 });

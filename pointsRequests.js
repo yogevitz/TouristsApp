@@ -139,10 +139,10 @@ exports.get3RandomPOIs = (req, res) => {
                 if (!pointsToReturn.includes(result[rnd]))
                     pointsToReturn.push(result[rnd]);
             }
-            res.send(pointsToReturn)
+            res.send(pointsToReturn);
         })
         .catch(function(err){
             console.log(err);
-            res.send(err)
+            res.send(err);Z
         })
 };

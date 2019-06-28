@@ -34,10 +34,15 @@ angular.module("myApp")
 
         $scope.selectedCategories = [];
 
+        $scope.questions = [
+            "The name of your first dog",
+            "The name of your 3rd grade teacher",
+            "The name of your favorite book",
+            "The name of your favorite restaurant"
+        ];
         let vm = this;
-        vm.questionsFullList = '';
         vm.question1List = '';
-        vm.question1List = '';
+        vm.question2List = '';
 
         $scope.register = function() {
 

@@ -7,7 +7,16 @@ var userRequests = require('./usersRequests');
 var pointsRequests = require('./pointsRequests');
 var reviewsRequests = require('./reviewsRequests');
 var categoriesRequests = require('./categoriesRequests');
-// var body = require('body-parser');
+
+var cors = require('cors');
+app.use(cors());
+app.use(express.json(), function(req, res, next) {
+    express.json();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 
 app.use(express.json());
 // app.use(express.urlencoded());
@@ -17,6 +26,11 @@ secret = "dracarys";
 var port = 3000;
 app.listen(port, function () {
     console.log('Example app listening on port ' + port);
+});
+
+app.use((req, res, next) => {
+    // console.log(req);
+    next();
 });
 
 // private middleware
