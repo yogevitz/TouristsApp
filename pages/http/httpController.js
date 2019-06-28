@@ -1,21 +1,25 @@
-// poi controller
+// http controller
 angular.module("myApp")
 .controller('httpController', ['$scope','$http', '$location', function($scope, $http, $location) {
-    console.log('Yogev');
+
+    console.log('HTTP Controller');
+
     $http({
         method: "GET",
-        url : 'https://localhost:3000/get3RandomPOIs',
+        url: 'http://localhost:3000/get3RandomPOIs',
         headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
     }).then(function mySuccess(response) {
         console.log("SUCCESS!");
         $scope.myWelcome = response.data;
-        }, function myError(response) {
-        debugger;
+        $scope.explore = response.data;
+    }, function myError(response) {
         console.log(response);
         console.log(response.data);
         console.log("FAILURE!");
         $scope.myWelcome = response.statusText;
-        });
+    });
+
+
     }]);
 
     //
