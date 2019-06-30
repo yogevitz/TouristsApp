@@ -26,17 +26,23 @@
             <p>Not registered yet? <a href="#!register">Sign Up!</a></p>
         </div>
         <div class="explore">
-            <div class="exploreImage">
-                <h4>{{exploreImage1Label}}</h4>
-                <img src="{{exploreImage1Image}}">
+            <div ng-click="openPOI({exploreImage1ID})" class="exploreImage">
+                <a href="#!poi">
+                    <h4>{{exploreImage1Label}}</h4>
+                    <img src="{{exploreImage1Image}}">
+                </a>
             </div>
-            <div class="exploreImage">
-                <h4>{{exploreImage2Label}}</h4>
-                <img src="{{exploreImage2Image}}">
+            <div ng-click="openPOI({exploreImage2ID})" class="exploreImage">
+                <a href="#!poi">
+                    <h4>{{exploreImage2Label}}</h4>
+                    <img src="{{exploreImage2Image}}">
+                </a>
             </div>
-            <div class="exploreImage">
-                <h4>{{exploreImage3Label}}</h4>
-                <img src="{{exploreImage3Image}}">
+            <div ng-click="openPOI({exploreImage3ID})" class="exploreImage">
+                <a href="#!poi">
+                    <h4>{{exploreImage3Label}}</h4>
+                    <img src="{{exploreImage3Image}}">
+                </a>
             </div>
         </div>
     </div>

@@ -1,13 +1,33 @@
 // poi controller
-angular.module("myApp")
-.controller("poiController", function ($scope) {
+// var app = angular.module("myApp");
+
+app.controller('poiController', ['$scope', '$http', '$location', sharedProperties, function($scope, $http, $location) {
     self = this;
-    self.cities = {
-        1: {name:"Colosseum", description: "The Colosseum and the Arch of Constantine", image: "images/Colosseum.jpg"},
-        2: {name:"Vatican City", description: "The smallest independent state in the world", image: "images/Vatican.jpg"},
-        3: {name:"Borghese Gallery", description: "Big art park", image: "images/Borghese.jpg"},
-        4: {name:"Capitoline Museums", description: "Beautiful museum", image: "images/Capitoline.jpg"},
-        5: {name:"Tonnarello", description: "Best restaurant in Rome", image: "images/Tonnarello.jpg"},
-        6: {name:"Stadio Olimpico", description: "Olympic stadium at the center of Rome", image: "images/Stadio.jpg"}
+
+    openImage(sharedProperties.getCurrentPointID());
+
+    function openImage(id) {
+        $http({
+            method: "GET",
+            url: 'http://localhost:3000/getPOIInfo/' + id,
+            headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+        }).then(function mySuccess(response) {
+            console.log("SUCCESS!");
+            let imageData = response.data;
+            $scope.imageText = imageData;
+            // $scope.exploreImage1Label = exploreImage1Data["Name"];
+            // $scope.exploreImage2Label = exploreImage2Data["Name"];
+            // $scope.exploreImage3Label = exploreImage3Data["Name"];
+            // $scope.exploreImage1Image = "images" + exploreImage1Data["Image"];
+            // $scope.exploreImage2Image = "images" + exploreImage2Data["Image"];
+            // $scope.exploreImage3Image = "images" + exploreImage3Data["Image"];
+        }, function myError(response) {
+            // debugger;
+            console.log(response);
+            console.log(response.data);
+            console.log("FAILURE!");
+            $scope.myWelcome = response.statusText;
+        });
     }
-});
+
+}]);

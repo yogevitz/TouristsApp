@@ -1,5 +1,18 @@
 let app = angular.module('myApp', ["ngRoute"]);
 
+
+app.service('sharedProperties', function () {
+    let currentPointID = 3;
+    return {
+        getCurrentPointID: function() {
+            return currentPointID;
+        },
+        setCurrentPointID: function(id) {
+            currentPointID = id;
+        }
+    };
+});
+
 // config routes
 app.config(function($routeProvider) {
     $routeProvider
