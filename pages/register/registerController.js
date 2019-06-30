@@ -1,6 +1,6 @@
 // register controller
 angular.module("myApp")
-    .controller("registerController", function ($scope) {
+    .controller("registerController", function ($scope, $http) {
         $scope.questions = [
             "The name of your first dog",
             "The name of your 3rd grade teacher",
@@ -33,7 +33,7 @@ angular.module("myApp")
         ];
 
         $scope.selectedCategories = [];
-
+        var registerData = {};
         $scope.questions = [
             "The name of your first dog",
             "The name of your 3rd grade teacher",
@@ -44,24 +44,67 @@ angular.module("myApp")
         vm.question1List = '';
         vm.question2List = '';
 
-        $scope.register = function() {
-
-            if (validCategories()) {
-                alert("Valid registration!");
+        function checkRegister() {
+            if ($scope.selectedCategories.filter(Boolean).length < 2) {
+                alert("Please choose at least 2 categories");
+                return false;
             } else {
-                return;
-            }
-
-            function validCategories() {
-                if ($scope.selectedCategories.filter(Boolean).length < 2) {
-                    alert("Please choose at least 2 categories");
-                    return false;
-                } else {
-                    return true;
-                }
+                return true;
             }
         }
+
+        $scope.register = function () {
+            if (checkRegister()){
+                var ansList = [];
+                ansList[0] = $scope.firstAnswer;
+                ansList[1] = $scope.secondAnswer;
+                var categories = [];
+                var j = 0;
+                for (var i=0; i < $scope.selectedCategories.length; j++,i++){
+                    if($scope.selectedCategories[i])
+                        categories[j] = $scope.selectedCategories[i];
+                }
+                // use $.param jQuery function to serialize data from JSON
+                registerData = {
+                    UserName: $scope.userName,
+                    Password: $scope.psw,
+                    FirstName: $scope.firstName,
+                    LastName: $scope.lastName,
+                    City: $scope.city,
+                    CountryID: $scope.country,
+                    Email: $scope.email,
+                    inputCategoriesList: categories,
+                    inputAnswersList: ansList
+                };
+
+                debugger;
+
+                $http({
+                    method: "POST",
+                    url: 'http://localhost:3000/register',
+                    headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"},
+                    body: registerData
+                }).then(function mySuccess(response) {
+                    console.log("SUCCESS REGISTRATION!");
+                }, function myError(response) {
+                    console.log("FAILURE!");
+                });
+
+                // $http.post('http://localhost:3000/register', data)
+                //     .success(function (data) {
+                //         $scope.PostDataResponse = registerData;
+                //         console.log("SUCCESS REGISTRATION!");
+                //     })
+                //     .error(function () {
+                //         $scope.ResponseDetails = "invalid registration "
+                //     });
+            }
+            else
+                return false;
+        };
+
     });
+
 
 angular.module("myApp").filter('excludeUsed', function() {
     var filter = function(items, excludeVal1, excludeVal2) {
@@ -75,3 +118,15 @@ angular.module("myApp").filter('excludeUsed', function() {
     return filter;
 });
 
+//
+// INSERT INTO Users" +
+// "(ID,UserName,Password,FirstName,LastName,City,CountryID,Email,Admin)
+// INSERT INTO UsersCategories" +
+//         "(UserID,CategoryID)
+// INSERT INTO UsersQuestionsAnswers" +
+//         "(UserID,QuestionID,Answer)
+// angular.module("myApp")
+//     .controller("registerController", function ($scope, $http) {
+//
+//
+// });

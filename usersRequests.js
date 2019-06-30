@@ -81,6 +81,7 @@ register2 = (req, res) => {
 register3 = (req, res) => {
     let newUserID = req.userID;
     let inputCategoriesList = req.body.CategoriesList;
+    // [1,2,5]
     let valuesToInsert = "";
     for (let i = 0; i < inputCategoriesList.length; i++) {
         valuesToInsert += "('" + newUserID + "','" + inputCategoriesList[i] + "'),";
