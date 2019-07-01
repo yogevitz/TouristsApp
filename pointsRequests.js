@@ -125,6 +125,20 @@ exports.getPOIListByName = (req, res) => {
         })
 };
 
+// getAllPOI
+exports.getAllPOI = (req, res) => {
+    DButilsAzure.execQuery(
+        "SELECT * " +
+        "FROM Points")
+        .then(function(result){
+            res.send(result)
+        })
+        .catch(function(err){
+            console.log(err);
+            res.send(err)
+        })
+};
+
 // get3RandomPOIs
 exports.get3RandomPOIs = (req, res) => {
     DButilsAzure.execQuery(

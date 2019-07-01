@@ -4,18 +4,49 @@
 app.controller('browseController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties', function($scope, $http, $rootScope, $location, sharedProperties) {
     self = this;
 
+    $scope.openPOI = function (id) {
+        $rootScope.pointID = id;
+    };
+
     $scope.searchPoints = function () {
-        console.log("Searching for: " + $scope.searchInput);
+        // console.log("Searching for: " + $scope.searchInput);
         // [{"ID":1,"Name":"Colosseum","Description":"The Colosseum and the Arch of Constantine",
         // "Image":"/Colosseum.jpg","CategoryID":4,"Viewers":30,"Rankers":20,"AverageRank":4.2}]
+        if ($scope.searchInput == null || $scope.searchInput === "") {
+            $scope.getAllPOIList();
+        } else {
+            $http({
+                method: "GET",
+                url: 'http://localhost:3000/getPOIListByName/' + $scope.searchInput,
+                headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+            }).then(function mySuccess(response) {
+                console.log("SUCCESS!");
+                $scope.results = response.data;
+                $scope.searchResultsPoints = response.data;
+                $scope.searchResultsCategories = [];
+                $scope.searchResultsCategories = [...new Set($scope.searchResultsPoints.map(x => x.CategoryID))];
+                $scope.searchResultsCategoriesNames = [];
+                for (let i = 0; i < $scope.searchResultsCategories.length; i++) {
+                    $scope.addCategoryName(i, $scope.searchResultsCategories[i]);
+                }
+            }, function myError(response) {
+                // debugger;
+                console.log(response);
+                console.log(response.data);
+                console.log("FAILURE!");
+                $scope.myWelcome = response.statusText;
+            });
+        }
+    };
+
+    $scope.addCategoryName = function (i, id) {
         $http({
             method: "GET",
-            url: 'http://localhost:3000/getPOIListByName/' + $scope.searchInput,
+            url: 'http://localhost:3000/getCategoryNameByCategoryID/' + id,
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
         }).then(function mySuccess(response) {
-            console.log("SUCCESS!");
-            $scope.results = response.data;
-            fillSearchResults();
+            let catData = response.data[0];
+            $scope.searchResultsCategoriesNames.push({ID: id, Name: catData.Name});
         }, function myError(response) {
             // debugger;
             console.log(response);
@@ -24,6 +55,30 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$location
             $scope.myWelcome = response.statusText;
         });
     };
+
+    $scope.getAllPOIList = function () {
+        $http({
+            method: "GET",
+            url: 'http://localhost:3000/getAllPOI',
+            headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+        }).then(function mySuccess(response) {
+            console.log("SUCCESS!");
+            $scope.results = response.data;
+            $scope.searchResultsPoints = response.data;
+            $scope.searchResultsCategories = [];
+            $scope.searchResultsCategories = [...new Set($scope.searchResultsPoints.map(x => x.CategoryID))];
+            $scope.searchResultsCategoriesNames = [];
+            for (let i = 0; i < $scope.searchResultsCategories.length; i++) {
+                $scope.addCategoryName(i, $scope.searchResultsCategories[i]);
+            }
+        }, function myError(response) {
+            // debugger;
+            console.log(response);
+            console.log(response.data);
+            console.log("FAILURE!");
+            $scope.myWelcome = response.statusText;
+        });
+    }
 
     $scope.openImage = function () {
         $http({
@@ -82,7 +137,7 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$location
         });
     };
 
-    // $scope.openImage();
+    $scope.searchPoints();
 
 }]);
 
