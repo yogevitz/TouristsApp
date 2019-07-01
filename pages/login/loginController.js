@@ -20,11 +20,11 @@ angular.module("myApp")
                         window.location.href = "#!"
                     }
                     // check here if insert successfully
-                })
-                .error(function () {
+                }
+                ,(function () {
                     console.log("FAILURE LOGIN!");
                     $scope.ResponseDetails = "invalid login "
-                });
+                }));
         };
 
     });

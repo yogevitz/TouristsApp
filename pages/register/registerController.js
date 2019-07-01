@@ -101,11 +101,11 @@ angular.module("myApp")
                         $scope.PostDataResponse = registerData;
                         console.log("SUCCESS REGISTRATION!");
                         window.location.href = "#!login"
-                    })
-                    .error(function () {
+                    }
+                    ,(function () {
                         console.log("FAILURE REGISTRATION!");
                         $scope.ResponseDetails = "invalid registration "
-                    });
+                    }));
             }
             else
                 return false;
