@@ -1,6 +1,6 @@
 // login controller
 angular.module("myApp")
-    .controller("loginController", function ($scope, $http) {
+    .controller("loginController", function ($scope, $http, $rootScope) {
         // button click count
         $scope.login = function() {
             var user = {
@@ -15,6 +15,7 @@ angular.module("myApp")
                         window.alert("user name or password are invalid");
                     else{
                         $scope.PostDataResponse = response.data;
+                        $rootScope.userToken = response.data;
                         console.log("SUCCESS LOGIN!");
                         window.location.href = "#!"
                     }
