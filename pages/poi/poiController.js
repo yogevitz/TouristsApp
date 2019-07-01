@@ -1,26 +1,23 @@
 // poi controller
 // var app = angular.module("myApp");
 
-app.controller('poiController', ['$scope', '$http', '$location', sharedProperties, function($scope, $http, $location) {
+app.controller('poiController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties', function($scope, $http, $rootScope, $location, sharedProperties) {
     self = this;
 
-    openImage(sharedProperties.getCurrentPointID());
-
-    function openImage(id) {
+    $scope.openImage = function () {
         $http({
             method: "GET",
-            url: 'http://localhost:3000/getPOIInfo/' + id,
+            url: 'http://localhost:3000/getPOIInfo/' + $rootScope.pointID,
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
         }).then(function mySuccess(response) {
             console.log("SUCCESS!");
-            let imageData = response.data;
-            $scope.imageText = imageData;
-            // $scope.exploreImage1Label = exploreImage1Data["Name"];
-            // $scope.exploreImage2Label = exploreImage2Data["Name"];
-            // $scope.exploreImage3Label = exploreImage3Data["Name"];
-            // $scope.exploreImage1Image = "images" + exploreImage1Data["Image"];
-            // $scope.exploreImage2Image = "images" + exploreImage2Data["Image"];
-            // $scope.exploreImage3Image = "images" + exploreImage3Data["Image"];
+            let pointData = response.data[0];
+            $scope.pointName = pointData["Name"];
+            $scope.pointImage = "images" + pointData["Image"];
+            $scope.pointDescription = pointData["Description"];
+            $scope.pointRankers = pointData["Rankers"];
+            $scope.pointAverageRank = pointData["AverageRank"];
+            $scope.pointViewers = pointData["Viewers"];
         }, function myError(response) {
             // debugger;
             console.log(response);
@@ -28,6 +25,8 @@ app.controller('poiController', ['$scope', '$http', '$location', sharedProperti
             console.log("FAILURE!");
             $scope.myWelcome = response.statusText;
         });
-    }
+    };
+
+    $scope.openImage();
 
 }]);

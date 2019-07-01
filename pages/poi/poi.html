@@ -5,8 +5,6 @@
     }
 </style>
 
-<h2 align="center">POI</h2>
-
 <h4>{{imageText}}</h4>
 
 <!--&lt;!&ndash; display all cities &ndash;&gt;-->
@@ -15,3 +13,32 @@
 <!--    City Description: <span ng-bind="city.description"></span><br>-->
 <!--    <img align="center" ng-src="{{ city.image }}">-->
 <!--</p>-->
+
+<div class="formPOIPage">
+    <div align="center" class="container">
+        <h2>{{pointName}}</h2>
+        <div class="pointImage">
+            <img style="width: 50%; height: 50%;" src="{{pointImage}}">
+        </div>
+        <div>
+            <label>Description: </label>
+            <label>{{pointDescription}}</label>
+        </div>
+        <div>
+            <label>Viewers: </label>
+            <label>{{pointViewers}}</label>
+        </div>
+        <div>
+            <label>Rankers: </label>
+            <label>{{pointRankers}}</label>
+        </div>
+        <div>
+            <label>Average Rank: </label>
+            <label>{{pointAverageRank}}</label>
+        </div>
+        <hr>
+        <div>
+            TODO: Add 2 last reviews
+        </div>
+    </div>
+</div>

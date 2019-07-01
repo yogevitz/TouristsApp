@@ -1,12 +1,12 @@
 // home controller
 // var app = angular.module("myApp");
 
-app.controller('homeController', ['$scope','$http', '$location', 'sharedProperties', function($scope, $http, $location) {
+app.controller('homeController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties', function($scope, $http, $rootScope, $location, sharedProperties) {
 
     console.log('Home Controller');
 
     $scope.openPOI = function (id) {
-        //.openPOIID = id;
+        $rootScope.pointID = id;
     };
 
     $http({
