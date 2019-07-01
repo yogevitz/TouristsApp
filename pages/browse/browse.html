@@ -6,7 +6,7 @@
         table-layout: fixed;
         border-spacing: 10px;
     }
-    .searchResultsImage {
+    .searchResultsPoint {
         display: table-cell;
         background-color: #b9ffda;
     }
@@ -29,33 +29,41 @@
             <input ng-model="searchInput" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-primary" type="submit" ng-click="searchPoints()">Search</button>
         </form>
-        <hr>
         <div class="searchResults">
 
-            <div ng-repeat="(key, value) in searchResultsPoints">
-
+            <div ng-repeat="(key, category) in searchResultsCategoriesNames">
+                <h3><label ng-bind="category.Name"></label></h3>
+                <div ng-repeat="(key, point) in searchResultsPoints | filter : {CategoryID: category.ID}" class="searchResultsPoint">
+                    <div ng-click="openPOI(point.ID)" class="exploreImage">
+                        <a href="#!poi">
+                            <h4><span ng-bind="point.Name"></span></h4>
+                            <img ng-src="{{'images/' + point.Image}}">
+                        </a>
+                    </div>
+                </div>
+                <hr>
             </div>
 
 
 
-            <div ng-click="openPOI(exploreImage1ID)" class="searchResultsImage">
-                <a href="#!poi">
-                    <h4>{{exploreImage1Label}}</h4>
-                    <img src="{{exploreImage1Image}}">
-                </a>
-            </div>
-            <div ng-click="openPOI(exploreImage2ID)" class="searchResultsImage">
-                <a href="#!poi">
-                    <h4>{{exploreImage2Label}}</h4>
-                    <img src="{{exploreImage2Image}}">
-                </a>
-            </div>
-            <div ng-click="openPOI(exploreImage3ID)" class="searchResultsImage">
-                <a href="#!poi">
-                    <h4>{{exploreImage3Label}}</h4>
-                    <img src="{{exploreImage3Image}}">
-                </a>
-            </div>
+<!--            <div ng-click="openPOI(exploreImage1ID)" class="searchResultsImage">-->
+<!--                <a href="#!poi">-->
+<!--                    <h4>{{exploreImage1Label}}</h4>-->
+<!--                    <img src="{{exploreImage1Image}}">-->
+<!--                </a>-->
+<!--            </div>-->
+<!--            <div ng-click="openPOI(exploreImage2ID)" class="searchResultsImage">-->
+<!--                <a href="#!poi">-->
+<!--                    <h4>{{exploreImage2Label}}</h4>-->
+<!--                    <img src="{{exploreImage2Image}}">-->
+<!--                </a>-->
+<!--            </div>-->
+<!--            <div ng-click="openPOI(exploreImage3ID)" class="searchResultsImage">-->
+<!--                <a href="#!poi">-->
+<!--                    <h4>{{exploreImage3Label}}</h4>-->
+<!--                    <img src="{{exploreImage3Image}}">-->
+<!--                </a>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

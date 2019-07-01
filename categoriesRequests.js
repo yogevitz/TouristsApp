@@ -43,3 +43,18 @@ exports.getAllCategories = (req, res) => {
             res.send(err)
         })
 };
+
+// getCategoryNameByCategoryID
+exports.getCategoryNameByCategoryID = (req, res) => {
+    DButilsAzure.execQuery(
+        "SELECT Name " +
+        "FROM Categories " +
+        "Where ID = " + req.params.id)
+        .then(function(result){
+            res.send(result)
+        })
+        .catch(function(err){
+            console.log(err);
+            res.send(err)
+        })
+};

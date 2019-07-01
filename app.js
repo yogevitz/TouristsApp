@@ -87,11 +87,16 @@ app.get('/getPOI2RecentReviews/:id', pointsRequests.getPOI2RecentReviews);
 // getPOIListByName
 app.get('/getPOIListByName/:name', pointsRequests.getPOIListByName);
 
+app.get('/getAllPOI', pointsRequests.getAllPOI);
+
 // get3RandomPOIs
 app.get('/get3RandomPOIs', pointsRequests.get3RandomPOIs);
 
 // getCategoryIDByCategoryName
 app.get('/getCategoryIDByCategoryName/:name', categoriesRequests.getCategoryIDByCategoryName);
+
+// getCategoryNameByCategoryID
+app.get('/getCategoryNameByCategoryID/:id', categoriesRequests.getCategoryNameByCategoryID);
 
 // getCategoryPOIs
 app.get('/getCategoryPOIs/:categoryID', categoriesRequests.getCategoryPOIs);
