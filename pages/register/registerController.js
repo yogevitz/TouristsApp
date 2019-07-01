@@ -56,13 +56,19 @@ angular.module("myApp")
         $scope.register = function () {
             if (checkRegister()){
                 var ansList = [];
-                ansList[0] = $scope.firstAnswer;
-                ansList[1] = $scope.secondAnswer;
+                let firstQuestion = $scope.questions.indexOf($scope.vm.question1List);
+                let firstAns = $scope.firstAnswer;
+                ansList[0] = {firstQuestion, firstAns};
+                let secondQuestion = $scope.questions.indexOf($scope.vm.question2List);
+                let secondAns = $scope.secondAnswer;
+                ansList[1] = {secondQuestion, secondAns};
                 var categories = [];
                 var j = 0;
-                for (var i=0; i < $scope.selectedCategories.length; j++,i++){
-                    if($scope.selectedCategories[i])
-                        categories[j] = $scope.selectedCategories[i];
+                for (var i=0; i < $scope.selectedCategories.length; i++){
+                    if($scope.selectedCategories[i]){
+                        categories[j] = i;
+                        j++;
+                    }
                 }
                 // use $.param jQuery function to serialize data from JSON
                 registerData = {
@@ -79,25 +85,27 @@ angular.module("myApp")
 
                 debugger;
 
-                $http({
-                    method: "POST",
-                    url: 'http://localhost:3000/register',
-                    headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"},
-                    body: registerData
-                }).then(function mySuccess(response) {
-                    console.log("SUCCESS REGISTRATION!");
-                }, function myError(response) {
-                    console.log("FAILURE!");
-                });
+                // $http({
+                //     method: "POST",
+                //     url: 'http://localhost:3000/register',
+                //     headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"},
+                //     body: registerData
+                // }).then(function mySuccess(response) {
+                //     console.log("SUCCESS REGISTRATION!");
+                // }, function myError(response) {
+                //     console.log("FAILURE!");
+                // });
 
-                // $http.post('http://localhost:3000/register', data)
-                //     .success(function (data) {
-                //         $scope.PostDataResponse = registerData;
-                //         console.log("SUCCESS REGISTRATION!");
-                //     })
-                //     .error(function () {
-                //         $scope.ResponseDetails = "invalid registration "
-                //     });
+                $http.post('http://localhost:3000/register', registerData)
+                    .then(function (response) {
+                        $scope.PostDataResponse = registerData;
+                        console.log("SUCCESS REGISTRATION!");
+                        window.location.href = "#!login"
+                    })
+                    .error(function () {
+                        console.log("FAILURE REGISTRATION!");
+                        $scope.ResponseDetails = "invalid registration "
+                    });
             }
             else
                 return false;
