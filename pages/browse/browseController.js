@@ -1,8 +1,29 @@
 // poi controller
 // var app = angular.module("myApp");
 
-app.controller('poiController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties', function($scope, $http, $rootScope, $location, sharedProperties) {
+app.controller('browseController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties', function($scope, $http, $rootScope, $location, sharedProperties) {
     self = this;
+
+    $scope.searchPoints = function () {
+        console.log("Searching for: " + $scope.searchInput);
+        // [{"ID":1,"Name":"Colosseum","Description":"The Colosseum and the Arch of Constantine",
+        // "Image":"/Colosseum.jpg","CategoryID":4,"Viewers":30,"Rankers":20,"AverageRank":4.2}]
+        $http({
+            method: "GET",
+            url: 'http://localhost:3000/getPOIListByName/' + $scope.searchInput,
+            headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+        }).then(function mySuccess(response) {
+            console.log("SUCCESS!");
+            $scope.results = response.data;
+            fillSearchResults();
+        }, function myError(response) {
+            // debugger;
+            console.log(response);
+            console.log(response.data);
+            console.log("FAILURE!");
+            $scope.myWelcome = response.statusText;
+        });
+    };
 
     $scope.openImage = function () {
         $http({
@@ -61,6 +82,10 @@ app.controller('poiController', ['$scope', '$http', '$rootScope', '$location', 
         });
     };
 
-    $scope.openImage();
+    // $scope.openImage();
 
 }]);
+
+function fillSearchResults() {
+
+}

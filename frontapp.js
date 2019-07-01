@@ -35,6 +35,11 @@ app.config(function($routeProvider) {
             templateUrl: 'pages/poi/poi.html',
             controller : 'poiController as poiCtrl'
         })
+        // browse
+        .when('/browse', {
+            templateUrl: 'pages/browse/browse.html',
+            controller : 'browseController as brwsCtrl'
+        })
         .when('/httpRequest', {
             templateUrl: 'pages/http/request.html',
             controller : 'httpController as httpCtrl'
