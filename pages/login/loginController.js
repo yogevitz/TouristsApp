@@ -9,7 +9,7 @@ angular.module("myApp")
             };
             //{ headers: {"x-auth-token":$rootScope.userToken}}
 
-            $http.post('http://localhost:3000/users/login',user )
+            $http.post('http://localhost:3000/login',user )
                 .then(function(response){
                     if(response.data == "Invalid credentials.")
                         window.alert("user name or password are invalid");
