@@ -31,7 +31,7 @@
         </form>
         <div class="searchResults">
 
-            <div ng-repeat="(key, category) in searchResultsCategoriesNames">
+            <div ng-repeat="(key, category) in searchResultsCategoriesNames | orderBy: 'Name'">
                 <h3><label ng-bind="category.Name"></label></h3>
                 <div ng-repeat="(key, point) in searchResultsPoints | filter : {CategoryID: category.ID}" class="searchResultsPoint">
                     <div ng-click="openPOI(point.ID)" class="exploreImage">

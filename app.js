@@ -52,7 +52,7 @@ app.use("/private", (req, res, next) => {
 app.post("/login", userRequests.login);
 
 // register
-app.use("/register", userRequests.register);
+app.post("/register", userRequests.register);
 
 // restorePassword
 app.post("/restorePassword", userRequests.restorePassword);

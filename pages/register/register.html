@@ -1,5 +1,5 @@
 <div class="formRegisterPage">
-<form action="/action_page.php" ng-submit="register()">
+<form ng-submit="register()">
     <div class="container" ng-form="registerForm">
         <h1>Register</h1>
         <p>Please fill in this form to create an account</p>
@@ -64,13 +64,13 @@
                 <label for="psw"><b>Password</b></label>
             </div>
             <div>
-                <input ng-pattern="^[A-Za-z0-9]+$" ng-minlength="5" ng-maxlength="10" ng-model="psw" id="psw" type="password" class="form-control" placeholder="Enter Password" name="psw" required>
+                <input pattern="^[A-Za-z0-9]+$" ng-minlength="5" ng-maxlength="10" ng-model="psw" id="psw" type="password" class="form-control" placeholder="Enter Password" name="psw" required>
             </div>
         </div>
         </br>
         <div>
             <div>
-                <label for="questions"><b>Security Questions</b></label>
+                <label><b>Security Questions</b></label>
             </div>
             <div>
                 <div>
@@ -99,7 +99,7 @@
         </br>
         <div>
             <div>
-                <label for="categories"><b>Categories</b></label>
+                <label><b>Categories</b></label>
             </div>
             <div ng-repeat="(key, val) in categories">
                 <input ng-id="categories" type="checkbox" ng-model="selectedCategories[val.id]"
@@ -110,7 +110,7 @@
         </br>
         <p>By creating an account you agree to our <a target="_blank" href="https://www.termsfeed.com/blog/wp-content/uploads/2019/04/terms-and-conditions-template.pdf">Terms & Privacy</a>.</p>
 
-        <input id="submit" ng-disabled="!registerForm.$valid" ng-click="register()" type="submit" class="btn-primary" value="Register">
+        <input id="submit" ng-disabled="!registerForm.$valid" ng-click="register" type="submit" class="btn-primary" value="Register">
 
     </div>
     </br>

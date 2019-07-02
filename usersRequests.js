@@ -1,5 +1,10 @@
 var DButilsAzure = require('./DButils');
 var jwt = require("jsonwebtoken");
+let firstTime1 = true;
+let firstTime2 = true;
+let firstTime3 = true;
+let firstTime4 = true;
+let firstTime5 = true;
 
 // login
 exports.login = (req, res) => {
@@ -26,123 +31,274 @@ exports.login = (req, res) => {
         })
 };
 
-// register - get new user ID
-exports.register = (req, res) => {
-    var newUserID;
-    DButilsAzure.execQuery(
-        "SELECT Count(*) c FROM Users" +
+// // register - get new user ID
+// exports.register = async (req, res) => {
+//
+//     // Validate the given UserName and Email
+//     await registerValidateUserNameAndEmail(req, res);
+//
+//     // Get the new user ID
+//     await registerGetNewUserID(req, res);
+//
+//     // Insert into Users table
+//     await registerInsertNewUser(req, res);
+//
+//     // Insert into UsersCategories table
+//     await registerInsertNewUsersCategories(req, res);
+//
+//     // Insert into UsersQuestionsAnswers table
+//     await registerInsertNewUsersQuestionsAnswers(req, res);
+//
+// };
+
+
+
+exports.register = async (req, res) => {
+
+    // Check if the UserName or the Email already exists
+    await DButilsAzure.execQuery(
+        "SELECT Count(*) c FROM Users " +
         "WHERE UserName = '" + req.body.UserName + "' OR " +
         "Email = '" + req.body.Email + "'")
-        .then(function(result, err){
-            if(result[0].c > 0){
+        .then(function (result, err) {
+            if (result[0].c > 0) {
                 console.log(err);
-                res.send(err);
-                res.status(400).send({ result: "Failed." });
+            } else {
+                console.log("Valid UserName and Email");
             }
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
             res.send(err);
-            res.status(400).send({ result: "Failed." });
+            // res.status(400).send({result: "Failed."});
         });
 
-    DButilsAzure.execQuery(
+    // Get the new user ID
+    await DButilsAzure.execQuery(
         "SELECT Count(*) c FROM Users")
-        .then(function(result){
-            newUserID = 1 + result[0].c;
-            req.userID = newUserID;
-            register2(req, res);
+        .then(function (result) {
+            req.userID = 1 + result[0].c;
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
             res.send(err)
         });
-};
 
-// register - add user to the Users table
-register2 = (req, res) => {
-    let newUserID = req.userID;
-    let inputUserName = req.body.UserName;
-    let inputPassword = req.body.Password;
-    let inputFirstName = req.body.FirstName;
-    let inputLastName = req.body.LastName;
-    let inputCity = req.body.City;
-    let inputCountryID = req.body.CountryID;
-    let inputEmail = req.body.Email;
-    let isAdmin = 0;
-    DButilsAzure.execQuery(
+    // Insert into Users table
+    await DButilsAzure.execQuery(
         "INSERT INTO Users" +
         "(ID,UserName,Password,FirstName,LastName,City,CountryID,Email,Admin) " +
         "VALUES (" +
-        "'" + newUserID + "'," +
-        "'" + inputUserName + "'," +
-        "'" + inputPassword + "'," +
-        "'" + inputFirstName + "'," +
-        "'" + inputLastName + "'," +
-        "'" + inputCity + "'," +
-        "'" + inputCountryID + "'," +
-        "'" + inputEmail + "'," +
-        "'" + isAdmin + "'" +
+        "'" + req.userID + "'," +
+        "'" + req.body.UserName + "'," +
+        "'" + req.body.Password + "'," +
+        "'" + req.body.FirstName + "'," +
+        "'" + req.body.LastName + "'," +
+        "'" + req.body.City + "'," +
+        "'" + req.body.CountryID + "'," +
+        "'" + req.body.Email + "'," +
+        "'" + 0 + "'" +
         ")")
-        .then(function(result){
-            register3(req, res);
+        .then(function (result) {
+            console.log("Inserted a new row to the Users table.")
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
             res.send(err);
-            res.status(400).send({ result: "Failed." });
-        })
-};
+            // res.status(400).send({result: "Failed."});
+        });
 
-// register - add categories to UsersCategories
-register3 = (req, res) => {
-    let newUserID = req.userID;
+    // Insert into UsersCategories table
     let inputCategoriesList = req.body.CategoriesList;
     // [1,2,5]
     let valuesToInsert = "";
     for (let i = 0; i < inputCategoriesList.length; i++) {
-        valuesToInsert += "('" + newUserID + "','" + inputCategoriesList[i] + "'),";
+        valuesToInsert += "('" + req.userID + "','" + inputCategoriesList[i] + "'),";
     }
-    valuesToInsert = valuesToInsert.substr(0,valuesToInsert.length - 1);
-    DButilsAzure.execQuery(
+    valuesToInsert = valuesToInsert.substr(0, valuesToInsert.length - 1);
+    await DButilsAzure.execQuery(
         "INSERT INTO UsersCategories" +
         "(UserID,CategoryID) " +
         "VALUES " + valuesToInsert)
-        .then(function(result){
-            register4(req, res);
+        .then(function (result) {
+            console.log("Inserted a new row to the UsersCategories table.")
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
             res.send(err);
-            res.status(400).send({ result: "Failed." });
-        })
-};
+            // res.status(400).send({result: "Failed."});
+        });
 
-// register - add the user's answers to UsersQuestionsAnswers
-register4 = (req, res) => {
-    let newUserID = req.userID;
+    // Insert into UsersQuestionsAnswers table
     // "AnswersList": [{"QuestionID": 1, "Answer": "Casper"},{"QuestionID": 2, "Answer": "Yael"}]
     let inputAnswersList = req.body.AnswersList;
-    let valuesToInsert = "";
+    valuesToInsert = "";
     for (let i = 0; i < inputAnswersList.length; i++) {
         let question = inputAnswersList[i].QuestionID;
         let answer = inputAnswersList[i].Answer;
-        valuesToInsert += "('" + newUserID + "','" + question + "','" + answer + "'),";
+        valuesToInsert += "('" + req.userID + "','" + question + "','" + answer + "'),";
     }
-    valuesToInsert = valuesToInsert.substr(0,valuesToInsert.length - 1);
-    DButilsAzure.execQuery(
+    valuesToInsert = valuesToInsert.substr(0, valuesToInsert.length - 1);
+    await DButilsAzure.execQuery(
         "INSERT INTO UsersQuestionsAnswers" +
         "(UserID,QuestionID,Answer) " +
         "VALUES " + valuesToInsert)
-        .then(function(result){
-            res.status(200).send({ result: "Registered Successfully." });
+        .then(function (result) {
+            console.log("Inserted a new row to the UsersQuestionsAnswers table.");
+            // res.status(200);
+            res.status(200).send({result: "Registered Successfully."});
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
             res.send(err);
-            res.status(400).send({ result: "Failed." });
+            // res.status(400).send({result: "Failed."});
         })
+
 };
+
+
+
+
+
+
+
+
+
+//
+// registerValidateUserNameAndEmail = (req, res) => {
+//     if (firstTime1) {
+//         firstTime1 = false;
+//         DButilsAzure.execQuery(
+//             "SELECT Count(*) c FROM Users " +
+//             "WHERE UserName = '" + req.body.UserName + "' OR " +
+//             "Email = '" + req.body.Email + "'")
+//             .then(function (result, err) {
+//                 if (result[0].c > 0) {
+//                     console.log(err);
+//                     // res.send(err);
+//                     // res.status(400).send({ result: "Failed." });
+//                 }
+//             })
+//             .catch(function (err) {
+//                 console.log(err);
+//                 res.send(err);
+//                 // res.status(400).send({result: "Failed."});
+//             });
+//     }
+// };
+//
+// registerGetNewUserID = (req, res) => {
+//     if (firstTime2) {
+//         firstTime2 = false;
+//         let newUserID;
+//         DButilsAzure.execQuery(
+//             "SELECT Count(*) c FROM Users")
+//             .then(function (result) {
+//                 newUserID = 1 + result[0].c;
+//                 req.userID = newUserID;
+//             })
+//             .catch(function (err) {
+//                 console.log(err);
+//                 res.send(err)
+//             });
+//     }
+// };
+//
+// // register - add user to the Users table
+// registerInsertNewUser = (req, res) => {
+//     if (firstTime3) {
+//         firstTime3 = false;
+//         let newUserID = req.userID;
+//         let inputUserName = req.body.UserName;
+//         let inputPassword = req.body.Password;
+//         let inputFirstName = req.body.FirstName;
+//         let inputLastName = req.body.LastName;
+//         let inputCity = req.body.City;
+//         let inputCountryID = req.body.CountryID;
+//         let inputEmail = req.body.Email;
+//         let isAdmin = 0;
+//         DButilsAzure.execQuery(
+//             "INSERT INTO Users" +
+//             "(ID,UserName,Password,FirstName,LastName,City,CountryID,Email,Admin) " +
+//             "VALUES (" +
+//             "'" + newUserID + "'," +
+//             "'" + inputUserName + "'," +
+//             "'" + inputPassword + "'," +
+//             "'" + inputFirstName + "'," +
+//             "'" + inputLastName + "'," +
+//             "'" + inputCity + "'," +
+//             "'" + inputCountryID + "'," +
+//             "'" + inputEmail + "'," +
+//             "'" + isAdmin + "'" +
+//             ")")
+//             .then(function (result) {
+//                 console.log("Inserted a new row to the Users table.")
+//             })
+//             .catch(function (err) {
+//                 console.log(err);
+//                 res.send(err);
+//                 // res.status(400).send({result: "Failed."});
+//             })
+//     }
+// };
+//
+// // register - add categories to UsersCategories
+// registerInsertNewUsersCategories = (req, res) => {
+//     if (firstTime4) {
+//         firstTime4 = false;
+//         let newUserID = req.userID;
+//         let inputCategoriesList = req.body.CategoriesList;
+//         // [1,2,5]
+//         var valuesToInsert = "";
+//         for (let i = 0; i < inputCategoriesList.length; i++) {
+//             valuesToInsert += "('" + newUserID + "','" + inputCategoriesList[i] + "'),";
+//         }
+//         valuesToInsert = valuesToInsert.substr(0, valuesToInsert.length - 1);
+//         DButilsAzure.execQuery(
+//             "INSERT INTO UsersCategories" +
+//             "(UserID,CategoryID) " +
+//             "VALUES " + valuesToInsert)
+//             .then(function (result) {
+//                 console.log("Inserted a new row to the UsersCategories table.")
+//             })
+//             .catch(function (err) {
+//                 console.log(err);
+//                 res.send(err);
+//                 // res.status(400).send({result: "Failed."});
+//             })
+//     }
+// };
+
+// // register - add the user's answers to UsersQuestionsAnswers
+// registerInsertNewUsersQuestionsAnswers = (req, res) => {
+//     if (firstTime5) {
+//         firstTime5 = false;
+//         let newUserID = req.userID;
+//         // "AnswersList": [{"QuestionID": 1, "Answer": "Casper"},{"QuestionID": 2, "Answer": "Yael"}]
+//         let inputAnswersList = req.body.AnswersList;
+//         let valuesToInsert = "";
+//         for (let i = 0; i < inputAnswersList.length; i++) {
+//             let question = inputAnswersList[i].QuestionID;
+//             let answer = inputAnswersList[i].Answer;
+//             valuesToInsert += "('" + newUserID + "','" + question + "','" + answer + "'),";
+//         }
+//         valuesToInsert = valuesToInsert.substr(0, valuesToInsert.length - 1);
+//         DButilsAzure.execQuery(
+//             "INSERT INTO UsersQuestionsAnswers" +
+//             "(UserID,QuestionID,Answer) " +
+//             "VALUES " + valuesToInsert)
+//             .then(function (result) {
+//                 console.log("Inserted a new row to the UsersQuestionsAnswers table.");
+//                 res.status(200);
+//                 res.status(200).send({result: "Registered Successfully."});
+//             })
+//             .catch(function (err) {
+//                 console.log(err);
+//                 res.send(err);
+//                 // res.status(400).send({result: "Failed."});
+//             })
+//     }
+// };
 
 // restorePassword
 exports.restorePassword = (req, res) => {

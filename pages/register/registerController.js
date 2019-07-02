@@ -54,6 +54,7 @@ angular.module("myApp")
         }
 
         $scope.register = function () {
+            console.log("IDO1");
             if (checkRegister()){
                 var ansList = [];
                 let firstQuestion = $scope.questions.indexOf($scope.vm.question1List) + 1;
@@ -83,24 +84,45 @@ angular.module("myApp")
                     AnswersList: ansList
                 };
 
-                // debugger;
 
-                $http.post('http://localhost:3000/register', registerData)
-                    .then(function (response) {
-                        if(response.data == "Failed.")
-                            window.alert("Registered Failed.");
-                        else {
-                            // $scope.PostDataResponse = response.data;
-                            // $rootScope.userToken = response.data;
-                            $scope.PostDataResponse = registerData.data;
-                            console.log("SUCCESS REGISTRATION!");
-                            window.location.href = "#!login"
-                        }
-                    }
-                    ,(function () {
-                        console.log("FAILURE REGISTRATION!");
-                        $scope.ResponseDetails = "invalid registration "
-                    }));
+                console.log("IDO2");
+
+
+                $http({
+                    method: "POST",
+                    url: 'http://localhost:3000/register',
+                    data: registerData
+                }).then(function a(response) {
+                    console.log("IDO3");
+                }, function b(response) {
+                    console.log("IDO5");
+                });
+
+                window.location.href = "#!login";
+
+
+                //
+                // console.log("IDO2");
+                // $http.post('http://localhost:3000/register', registerData)
+                //     .then(function (response) {
+                //         console.log("IDO3");
+                //         if (response.data === "Failed.") {
+                //             console.log("IDO5");
+                //             window.alert("Registered Failed.");
+                //         } else {
+                //             console.log("IDO4");
+                //             // $scope.PostDataResponse = response.data;
+                //             // $rootScope.userToken = response.data;
+                //             $scope.PostDataResponse = registerData.data;
+                //             console.log("SUCCESS REGISTRATION!");
+                //             window.location.href = "#!login"
+                //         }
+                //     }
+                //     ,(function () {
+                //         console.log("IDO6");
+                //         console.log("FAILURE REGISTRATION!");
+                //         $scope.ResponseDetails = "invalid registration "
+                //     }));
             }
             else {
 
