@@ -7,7 +7,6 @@ angular.module("myApp")
                 UserName: $scope.userName,
                 Password: $scope.psw
             };
-            //{ headers: {"x-auth-token":$rootScope.userToken}}
 
             $http.post('http://localhost:3000/login', user)
                 .then(function(response){

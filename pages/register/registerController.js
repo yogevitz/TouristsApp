@@ -58,10 +58,10 @@ angular.module("myApp")
                 var ansList = [];
                 let firstQuestion = $scope.questions.indexOf($scope.vm.question1List) + 1;
                 let firstAns = $scope.firstAnswer;
-                ansList[0] = {firstQuestion, firstAns};
+                ansList[0] = {"QuestionID": firstQuestion, "Answer": firstAns};
                 let secondQuestion = $scope.questions.indexOf($scope.vm.question2List) + 1;
                 let secondAns = $scope.secondAnswer;
-                ansList[1] = {secondQuestion, secondAns};
+                ansList[1] = {"QuestionID": secondQuestion, "Answer": secondAns};
                 var categories = [];
                 var j = 0;
                 for (var i=0; i < $scope.selectedCategories.length; i++){
@@ -71,16 +71,16 @@ angular.module("myApp")
                     }
                 }
                 // use $.param jQuery function to serialize data from JSON
-                var registerData = {
+                let registerData = {
                     UserName: $scope.userName,
                     Password: $scope.psw,
                     FirstName: $scope.firstName,
                     LastName: $scope.lastName,
                     City: $scope.city,
-                    CountryID: $scope.country,
+                    CountryID: $scope.countries.indexOf($scope.country) + 1,
                     Email: $scope.email,
-                    inputCategoriesList: categories,
-                    inputAnswersList: ansList
+                    CategoriesList: categories,
+                    AnswersList: ansList
                 };
 
                 // debugger;
@@ -102,8 +102,9 @@ angular.module("myApp")
                         $scope.ResponseDetails = "invalid registration "
                     }));
             }
-            else
-                return false;
+            else {
+
+            }
         };
 
     });
