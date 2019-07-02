@@ -23,10 +23,10 @@ angular.module("myApp")
                         console.log("SUCCESS LOGIN!");
                         window.location.href = "#!"
                     }
-                    // check here if insert successfully
                 }
                 ,(function () {
                     console.log("FAILURE LOGIN!");
+                    window.alert("User Name Or Password Are Invalid");
                     $scope.ResponseDetails = "invalid login "
                 }));
         };

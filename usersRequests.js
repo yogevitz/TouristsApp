@@ -30,6 +30,23 @@ exports.login = (req, res) => {
 exports.register = (req, res) => {
     var newUserID;
     DButilsAzure.execQuery(
+        "SELECT Count(*) c FROM Users" +
+        "WHERE UserName = '" + req.body.UserName + "' OR " +
+        "Email = '" + req.body.Email + "'")
+        .then(function(result, err){
+            if(result[0].c > 0){
+                console.log(err);
+                res.send(err);
+                res.status(400).send({ result: "Failed." });
+            }
+        })
+        .catch(function(err){
+            console.log(err);
+            res.send(err);
+            res.status(400).send({ result: "Failed." });
+        });
+
+    DButilsAzure.execQuery(
         "SELECT Count(*) c FROM Users")
         .then(function(result){
             newUserID = 1 + result[0].c;

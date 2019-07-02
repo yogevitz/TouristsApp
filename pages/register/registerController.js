@@ -56,10 +56,10 @@ angular.module("myApp")
         $scope.register = function () {
             if (checkRegister()){
                 var ansList = [];
-                let firstQuestion = $scope.questions.indexOf($scope.vm.question1List);
+                let firstQuestion = $scope.questions.indexOf($scope.vm.question1List) + 1;
                 let firstAns = $scope.firstAnswer;
                 ansList[0] = {firstQuestion, firstAns};
-                let secondQuestion = $scope.questions.indexOf($scope.vm.question2List);
+                let secondQuestion = $scope.questions.indexOf($scope.vm.question2List) + 1;
                 let secondAns = $scope.secondAnswer;
                 ansList[1] = {secondQuestion, secondAns};
                 var categories = [];
@@ -71,7 +71,7 @@ angular.module("myApp")
                     }
                 }
                 // use $.param jQuery function to serialize data from JSON
-                registerData = {
+                var registerData = {
                     UserName: $scope.userName,
                     Password: $scope.psw,
                     FirstName: $scope.firstName,
@@ -83,24 +83,19 @@ angular.module("myApp")
                     inputAnswersList: ansList
                 };
 
-                debugger;
-
-                // $http({
-                //     method: "POST",
-                //     url: 'http://localhost:3000/register',
-                //     headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"},
-                //     body: registerData
-                // }).then(function mySuccess(response) {
-                //     console.log("SUCCESS REGISTRATION!");
-                // }, function myError(response) {
-                //     console.log("FAILURE!");
-                // });
+                // debugger;
 
                 $http.post('http://localhost:3000/register', registerData)
                     .then(function (response) {
-                        $scope.PostDataResponse = registerData;
-                        console.log("SUCCESS REGISTRATION!");
-                        window.location.href = "#!login"
+                        if(response.data == "Failed.")
+                            window.alert("Registered Failed.");
+                        else {
+                            // $scope.PostDataResponse = response.data;
+                            // $rootScope.userToken = response.data;
+                            $scope.PostDataResponse = registerData.data;
+                            console.log("SUCCESS REGISTRATION!");
+                            window.location.href = "#!login"
+                        }
                     }
                     ,(function () {
                         console.log("FAILURE REGISTRATION!");
