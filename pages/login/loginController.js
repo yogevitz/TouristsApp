@@ -1,6 +1,6 @@
 // login controller
 angular.module("myApp")
-    .controller("loginController", function ($scope, $http, $rootScope) {
+    .controller("loginController", function ($scope, $http, $window, $rootScope) {
         // button click count
         $scope.login = function() {
             var user = {
@@ -9,13 +9,17 @@ angular.module("myApp")
             };
             //{ headers: {"x-auth-token":$rootScope.userToken}}
 
-            $http.post('http://localhost:3000/login',user )
+            $http.post('http://localhost:3000/login', user)
                 .then(function(response){
-                    if(response.data == "Invalid credentials.")
+                    if (response.data === "Invalid credentials.")
                         window.alert("user name or password are invalid");
-                    else{
+                    else {
                         $scope.PostDataResponse = response.data;
-                        $rootScope.userToken = response.data;
+                        $window.sessionStorage.setItem('userToken', response.data);
+                        $rootScope.existsConnectedUser = true;
+                        // $window.sessionStorage.setItem('userName', $scope.userName);
+                        $rootScope.userName = $scope.userName;
+                        // $rootScope.userToken = response.data;
                         console.log("SUCCESS LOGIN!");
                         window.location.href = "#!"
                     }

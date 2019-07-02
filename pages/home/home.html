@@ -10,6 +10,26 @@
         display: table-cell;
         background-color: #b9ffda;
     }
+    .favorites {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-spacing: 10px;
+    }
+    .favoritesImage {
+        display: table-cell;
+        background-color: #9a8bff;
+    }
+    .populars {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-spacing: 10px;
+    }
+    .popularsImage {
+        display: table-cell;
+        background-color: #ffe45e;
+    }
     img {
         max-width:90%;
         max-height:250px;
@@ -18,32 +38,79 @@
 
 <div class="formHomePaged">
     <div align="center" class="container">
-        <h2><b>Hello Guest</b></h2>
-        <div>
-            <p>Have a user? <a href="#!login">Log In!</a></p>
-        </div>
-        <div>
-            <p>Not registered yet? <a href="#!register">Sign Up!</a></p>
-        </div>
-        <div class="explore">
-            <div ng-click="openPOI(exploreImage1ID)" class="exploreImage">
-                <a href="#!poi">
-                    <h4>{{exploreImage1Label}}</h4>
-                    <img src="{{exploreImage1Image}}">
-                </a>
+        <h2>
+            <b>Hello <label ng-hide="existsConnectedUser">Guest</label>{{userName}}</b>
+        </h2>
+        <div ng-hide="existsConnectedUser">
+            <div>
+                <p>Have a user? <a href="#!login">Log In!</a></p>
             </div>
-            <div ng-click="openPOI(exploreImage2ID)" class="exploreImage">
-                <a href="#!poi">
-                    <h4>{{exploreImage2Label}}</h4>
-                    <img src="{{exploreImage2Image}}">
-                </a>
-            </div>
-            <div ng-click="openPOI(exploreImage3ID)" class="exploreImage">
-                <a href="#!poi">
-                    <h4>{{exploreImage3Label}}</h4>
-                    <img src="{{exploreImage3Image}}">
-                </a>
+            <div>
+                <p>Not registered yet? <a href="#!register">Sign Up!</a></p>
             </div>
         </div>
+        <hr>
+
+        <div ng-hide="existsConnectedUser">
+            <h3>Explore</h3>
+            <div class="explore">
+                <div ng-click="openPOI(exploreImage1ID)" class="exploreImage">
+                    <a href="#!poi">
+                        <h4>{{exploreImage1Label}}</h4>
+                        <img src="{{exploreImage1Image}}">
+                    </a>
+                </div>
+                <div ng-click="openPOI(exploreImage2ID)" class="exploreImage">
+                    <a href="#!poi">
+                        <h4>{{exploreImage2Label}}</h4>
+                        <img src="{{exploreImage2Image}}">
+                    </a>
+                </div>
+                <div ng-click="openPOI(exploreImage3ID)" class="exploreImage">
+                    <a href="#!poi">
+                        <h4>{{exploreImage3Label}}</h4>
+                        <img src="{{exploreImage3Image}}">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="existsConnectedUser">
+            <div>
+                <h3>Favorites</h3>
+            </div>
+            <div class="favorites">
+                <div ng-click="openPOI(exploreImage1ID)" class="favoritesImage">
+                    <a href="#!poi">
+                        <h4>{{exploreImage1Label}}</h4>
+                        <img src="{{exploreImage1Image}}">
+                    </a>
+                </div>
+                <div ng-click="openPOI(exploreImage2ID)" class="favoritesImage">
+                    <a href="#!poi">
+                        <h4>{{exploreImage2Label}}</h4>
+                        <img src="{{exploreImage2Image}}">
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h3>Popular</h3>
+            </div>
+            <div class="populars">
+                <div ng-click="openPOI(exploreImage1ID)" class="popularsImage">
+                    <a href="#!poi">
+                        <h4>{{exploreImage1Label}}</h4>
+                        <img src="{{exploreImage1Image}}">
+                    </a>
+                </div>
+                <div ng-click="openPOI(exploreImage2ID)" class="popularsImage">
+                    <a href="#!poi">
+                        <h4>{{exploreImage2Label}}</h4>
+                        <img src="{{exploreImage2Image}}">
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
