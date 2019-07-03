@@ -51,8 +51,6 @@ exports.login = (req, res) => {
 //
 // };
 
-
-
 exports.register = async (req, res) => {
 
     // Check if the UserName or the Email already exists
@@ -155,14 +153,6 @@ exports.register = async (req, res) => {
         })
 
 };
-
-
-
-
-
-
-
-
 
 //
 // registerValidateUserNameAndEmail = (req, res) => {
@@ -301,7 +291,7 @@ exports.register = async (req, res) => {
 // };
 
 // restorePassword
-exports.restorePassword = (req, res) => {
+exports.restorePassword = async (req, res) => {
     let inputUserName = req.body.UserName;
     // "AnswersList": [{"QuestionID": 1, "Answer": "Casper"},{"QuestionID": 2, "Answer": "Yael"}]
     let inputAnswersList = req.body.AnswersList;
@@ -316,7 +306,7 @@ exports.restorePassword = (req, res) => {
         q2 = inputAnswersList[1].QuestionID;
         a2 = inputAnswersList[1].Answer;
     }
-    DButilsAzure.execQuery(
+    await DButilsAzure.execQuery(
         "SELECT u.Password " +
         "FROM Users as u " +
         "WHERE UserName = '" + inputUserName + "' " +
@@ -327,7 +317,7 @@ exports.restorePassword = (req, res) => {
         "(SELECT * FROM UsersQuestionsAnswers WHERE UserID = u.ID " +
         "AND QuestionID = '" + q2 + "' AND Answer = '" + a2 + "')")
         .then(function(result){
-            result.length > 0 ? res.send(result[0]) : res.status(400).send("Invalid Question/Answer.");
+            result.length > 0 ? res.send(result[0]) : res.status(200).send("Invalid Question/Answer.");
         })
         .catch(function(err){
             console.log(err);

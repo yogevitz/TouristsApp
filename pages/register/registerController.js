@@ -46,7 +46,7 @@ angular.module("myApp")
 
         function checkRegister() {
             if ($scope.selectedCategories.filter(Boolean).length < 2) {
-                alert("Please choose at least 2 categories");
+                window.alert("Please choose at least 2 categories");
                 return false;
             } else {
                 return true;
@@ -54,7 +54,6 @@ angular.module("myApp")
         }
 
         $scope.register = function () {
-            console.log("IDO1");
             if (checkRegister()){
                 var ansList = [];
                 let firstQuestion = $scope.questions.indexOf($scope.vm.question1List) + 1;
@@ -125,6 +124,8 @@ angular.module("myApp")
                 //     }));
             }
             else {
+                window.alert("invalid registration");
+                window.location.href = "#!register";
 
             }
         };
