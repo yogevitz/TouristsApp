@@ -4,7 +4,7 @@ var dateFormat = require('dateformat');
 // get2PopularPOI
 exports.get2PopularPOI = (req, res) => {
     DButilsAzure.execQuery(
-        "SELECT p1.ID, p1.CategoryID, p1.Image, " +
+        "SELECT p1.ID, p1.Name, p1.CategoryID, p1.Image, " +
         "p1.Viewers, p1.Description, p1.AverageRank " +
         "FROM Points as p1, UsersCategories as uc " +
         "WHERE p1.CategoryID = uc.CategoryID " +
@@ -25,9 +25,14 @@ exports.get2PopularPOI = (req, res) => {
 exports.get2LastSavedPOI = (req, res) => {
     DButilsAzure.execQuery(
         "SELECT top 2 * " +
-        "FROM UsersPoints as up " +
-        "WHERE up.UserID = '" + req.decoded.id + "' " +
+        "FROM UsersPoints as up, Points as p " +
+        "WHERE up.PointID = p.ID " +
+        "AND up.UserID = '" + req.decoded.id + "' " +
         "ORDER BY up.Date desc")
+        // "SELECT top 2 * " +
+        // "FROM UsersPoints as up " +
+        // "WHERE up.UserID = '" + req.decoded.id + "' " +
+        // "ORDER BY up.Date desc")
         .then(function(result){
             res.send(result)
         })
