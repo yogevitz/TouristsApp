@@ -44,12 +44,38 @@ angular.module("myApp")
         vm.question1List = '';
         vm.question2List = '';
 
+        function onlyLetters(str) {
+            return /^[a-zA-Z]+$/.test(str);
+        }
+        function onlyLettersAndNumbers(str) {
+            return /^[A-Za-z0-9]+$/.test(str);
+        }
+
         function checkRegister() {
+            let validCategories,validUserName,validPassword = false;
             if ($scope.selectedCategories.filter(Boolean).length < 2) {
                 window.alert("Please choose at least 2 categories");
+            }
+            else {
+                validCategories = true;
+            }
+            if ($scope.userName.length < 3 || $scope.userName.length > 8 || !onlyLetters($scope.userName)) {
+                window.alert("The User Name Need To Contain Only Letters And Between 3 And 8 Letters");
+            }
+            else {
+                validUserName = true;
+            }
+            if ($scope.psw.length < 5 || $scope.psw.length > 10 || ! onlyLettersAndNumbers($scope.psw)) {
+                window.alert("The Password Need To Contain Only Letters And Numbers And Between 5 And 10 Characters");
+            }
+            else {
+                validPassword = true;
+            }
+            if(validCategories && validUserName && validPassword){
+                return true
+            }
+            else{
                 return false;
-            } else {
-                return true;
             }
         }
 
@@ -83,10 +109,6 @@ angular.module("myApp")
                     AnswersList: ansList
                 };
 
-
-                console.log("IDO2");
-
-
                 $http({
                     method: "POST",
                     url: 'http://localhost:3000/register',
@@ -98,7 +120,6 @@ angular.module("myApp")
                 });
 
                 window.location.href = "#!login";
-
 
                 //
                 // console.log("IDO2");
