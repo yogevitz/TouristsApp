@@ -71,12 +71,7 @@ angular.module("myApp")
             else {
                 validPassword = true;
             }
-            if(validCategories && validUserName && validPassword){
-                return true
-            }
-            else{
-                return false;
-            }
+            return validCategories && validUserName && validPassword;
         }
 
         $scope.register = function () {
