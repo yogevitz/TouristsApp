@@ -1,0 +1,71 @@
+<style>
+    .searchResults {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-spacing: 10px;
+    }
+    .searchResultsPointInCatOrder {
+        display: table-cell;
+        background-color: #ffabc1;
+    }
+    .searchResultsPointInRankOrder {
+        display: table-row;
+        background-color: #ffabc1;
+    }
+    .spacing {
+        height: 20px;
+    }
+    img {
+        max-width:90%;
+        max-height:250px;
+    }
+</style>
+
+<div class="formPOIPage">
+    <div align="center" class="container">
+        <h2>Favorites</h2>
+        <div class="spacing"></div>
+        <form class="form-inline md-form mr-auto mb-4" ng-show="existsConnectedUser">
+            <input ng-model="searchInput" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-primary" type="submit" ng-click="searchPoints()">Search</button>
+        </form>
+        <div class="searchResults" ng-show="existsConnectedUser">
+            <label>Sort by: </label>
+            <div ng-init="sort='Categories'">
+                <input type="radio" ng-model="sort" value="Categories"> Categories
+                <input type="radio" ng-model="sort" value="Ranks"> Ranks
+            </div>
+
+            <div ng-switch="sort">
+                <div ng-switch-when="Categories" ng-repeat="(key, category) in searchResultsCategoriesNames | orderBy: 'Name'">
+                    <h3><label ng-bind="category.Name"></label></h3>
+                    <div ng-repeat="(key, point) in searchResultsPoints | filter : {CategoryID: category.ID}" class="searchResultsPointInCatOrder">
+                        <div ng-click="openPOI(point.ID)">
+                            <a href="#!poi">
+                                <h4><span ng-bind="point.Name"></span></h4>
+                                <img ng-src="{{'images/' + point.Image}}">
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div ng-switch-when="Ranks">
+                    <div class="spacing"></div>
+                    <div ng-repeat="(key, pointRank) in searchResultsPoints | orderBy: 'AverageRank' : true" class="searchResultsPointInRankOrder">
+                        <div ng-click="openPOI(pointRank.ID)">
+                            <a href="#!poi">
+                                <h4><span ng-bind="pointRank.Name"></span></h4>
+                                <img ng-src="{{'images/' + pointRank.Image}}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--        <div class="spacing"></div>-->
+        <div ng-show="noFavorites">
+            <label>No results found :(</label>
+        </div>
+    </div>
+</div>

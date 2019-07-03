@@ -46,8 +46,26 @@ exports.get2LastSavedPOI = (req, res) => {
 exports.getUserFavPOIList = (req, res) => {
     DButilsAzure.execQuery(
         "SELECT * " +
-        "FROM UsersPoints " +
-        "WHERE UserID = '" + req.decoded.username + "'")
+        "FROM UsersPoints as up, Points as p " +
+        "WHERE up.PointID = p.ID " +
+        "AND up.UserID = '" + req.decoded.id + "'")
+        .then(function(result){
+            res.send(result)
+        })
+        .catch(function(err){
+            console.log(err);
+            res.send(err)
+        })
+};
+
+// getUserFavPOIListByName
+exports.getUserFavPOIListByName = (req, res) => {
+    DButilsAzure.execQuery(
+        "SELECT * " +
+        "FROM Points as p, UsersPoints as up " +
+        "WHERE p.ID = up.PointID " +
+        "AND p.Name LIKE '%" + req.params.name + "%' " +
+        "AND up.UserID = '" + req.decoded.id + "'")
         .then(function(result){
             res.send(result)
         })

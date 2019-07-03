@@ -75,6 +75,9 @@ app.get('/private/get2LastSavedPOI', pointsRequests.get2LastSavedPOI);
 // getUserFavPOIList
 app.get('/private/getUserFavPOIList', pointsRequests.getUserFavPOIList);
 
+// getUserFavPOIListByName
+app.get('/private/getUserFavPOIListByName/:name', pointsRequests.getUserFavPOIListByName);
+
 // setUserSavedPOIList
 app.post("/private/setUserSavedPOIList", pointsRequests.setUserSavedPOIList);
 

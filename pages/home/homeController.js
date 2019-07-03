@@ -48,9 +48,9 @@ app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '
                 "x-auth-token": $window.sessionStorage.getItem("userToken")}
         }).then(function mySuccess(response) {
             console.log("SUCCESS!");
-            $scope.popularImage1Label = "";
-            $scope.popularImage1ID = "";
-            $scope.popularImage1Image = "";
+            // $scope.popularImage1Label = "";
+            // $scope.popularImage1ID = "";
+            // $scope.popularImage1Image = "";
             let popularImagesData = response.data;
             if (popularImagesData[0]) {
                 let popularImage1Data = popularImagesData[0];
@@ -58,9 +58,9 @@ app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '
                 $scope.popularImage1ID = popularImage1Data["ID"];
                 $scope.popularImage1Image = "images" + popularImage1Data["Image"];
             }
-            $scope.popularImage2Label = "";
-            $scope.popularImage2ID = "";
-            $scope.popularImage2Image = "";
+            // $scope.popularImage2Label = "";
+            // $scope.popularImage2ID = "";
+            // $scope.popularImage2Image = "";
             if (popularImagesData[1]) {
                 let popularImage2Data = popularImagesData[1];
                 $scope.popularImage2Label = popularImage2Data["Name"];
@@ -84,9 +84,9 @@ app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '
                 "x-auth-token": $window.sessionStorage.getItem("userToken")}
         }).then(function mySuccess(response) {
             console.log("SUCCESS!");
-            $scope.lastSavedImage1Label = "";
-            $scope.lastSavedImage1ID = "";
-            $scope.lastSavedImage1Image = "";
+            // $scope.lastSavedImage1Label = "";
+            // $scope.lastSavedImage1ID = "";
+            // $scope.lastSavedImage1Image = "";
             let lastSavedImagesData = response.data;
             if (lastSavedImagesData[0]) {
                 let lastSavedImage1Data = lastSavedImagesData[0];
@@ -94,9 +94,9 @@ app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '
                 $scope.lastSavedImage1ID = lastSavedImage1Data["ID"];
                 $scope.lastSavedImage1Image = "images" + lastSavedImage1Data["Image"];
             }
-            $scope.lastSavedImage2Label = "";
-            $scope.lastSavedImage2ID = "";
-            $scope.lastSavedImage2Image = "";
+            // $scope.lastSavedImage2Label = "";
+            // $scope.lastSavedImage2ID = "";
+            // $scope.lastSavedImage2Image = "";
             if (lastSavedImagesData[1]) {
                 let lastSavedImage2Data = lastSavedImagesData[1];
                 $scope.lastSavedImage2Label = lastSavedImage2Data["Name"];

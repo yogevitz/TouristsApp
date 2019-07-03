@@ -40,6 +40,11 @@ app.config(function($routeProvider) {
             templateUrl: 'pages/browse/browse.html',
             controller : 'browseController as brwsCtrl'
         })
+        // favorites
+        .when('/favorites', {
+            templateUrl: 'pages/favorites/favorites.html',
+            controller : 'favoritesController as favController'
+        })
         .when('/httpRequest', {
             templateUrl: 'pages/http/request.html',
             controller : 'httpController as httpCtrl'

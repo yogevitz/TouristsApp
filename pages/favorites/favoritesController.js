@@ -1,33 +1,32 @@
 // poi controller
 // var app = angular.module("myApp");
 
-app.controller('browseController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties', function($scope, $http, $rootScope, $location, sharedProperties) {
+app.controller('favoritesController', ['$scope', '$http', '$rootScope', '$window', '$location', 'sharedProperties',
+    function($scope, $http, $rootScope, $window, $location, sharedProperties) {
     self = this;
-    $scope.noBrowse = false;
-
-    $scope.openPOI = function (id) {
-        $rootScope.pointID = id;
-    };
+    $scope.noFavorites = false;
 
     $scope.searchPoints = function () {
         // console.log("Searching for: " + $scope.searchInput);
         // [{"ID":1,"Name":"Colosseum","Description":"The Colosseum and the Arch of Constantine",
         // "Image":"/Colosseum.jpg","CategoryID":4,"Viewers":30,"Rankers":20,"AverageRank":4.2}]
         if ($scope.searchInput == null || $scope.searchInput === "") {
-            $scope.noBrowse = false;
-            $scope.getAllPOIList();
+            $scope.noFavorites = false;
+            $scope.getUserFavPOIList();
         } else {
             $http({
                 method: "GET",
-                url: 'http://localhost:3000/getPOIListByName/' + $scope.searchInput,
-                headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+                url: 'http://localhost:3000/private/getUserFavPOIListByName/' + $scope.searchInput,
+                headers: {"Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept",
+                    "x-auth-token": $window.sessionStorage.getItem("userToken")}
             }).then(function mySuccess(response) {
                 console.log("SUCCESS!");
                 $scope.results = response.data;
                 if (response.data.length === 0) {
-                    $scope.noBrowse = true;
+                    $scope.noFavorites = true;
                 } else {
-                    $scope.noBrowse = false;
+                    $scope.noFavorites = false;
                 }
                 $scope.searchResultsPoints = response.data;
                 $scope.searchResultsCategories = [];
@@ -63,11 +62,13 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$location
         });
     };
 
-    $scope.getAllPOIList = function () {
+    $scope.getUserFavPOIList = function () {
         $http({
             method: "GET",
-            url: 'http://localhost:3000/getAllPOI',
-            headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+            url: 'http://localhost:3000/private/getUserFavPOIList',
+            headers: {"Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept",
+                "x-auth-token": $window.sessionStorage.getItem("userToken")}
         }).then(function mySuccess(response) {
             console.log("SUCCESS!");
             $scope.results = response.data;
@@ -85,7 +86,7 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$location
             console.log("FAILURE!");
             $scope.myWelcome = response.statusText;
         });
-    }
+    };
 
     $scope.openImage = function () {
         $http({
