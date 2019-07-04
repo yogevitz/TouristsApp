@@ -6,6 +6,10 @@ app.controller('favoritesController', ['$scope', '$http', '$rootScope', '$windo
     self = this;
     $scope.noFavorites = false;
 
+    $scope.openPOI = function (id) {
+        $rootScope.pointID = id;
+    };
+
     $scope.searchPoints = function () {
         // console.log("Searching for: " + $scope.searchInput);
         // [{"ID":1,"Name":"Colosseum","Description":"The Colosseum and the Arch of Constantine",
