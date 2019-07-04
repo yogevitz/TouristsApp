@@ -1,9 +1,11 @@
 // poi controller
 // var app = angular.module("myApp");
 
-app.controller('browseController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties', function($scope, $http, $rootScope, $location, sharedProperties) {
+app.controller('browseController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties',
+    function($scope, $http, $rootScope, $location, sharedProperties) {
     self = this;
     $scope.noBrowse = false;
+    $scope.selectedCategoriesList = [];
 
     $scope.openPOI = function (id) {
         $rootScope.pointID = id;
@@ -54,6 +56,7 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$location
         }).then(function mySuccess(response) {
             let catData = response.data[0];
             $scope.searchResultsCategoriesNames.push({ID: id, Name: catData.Name});
+            $scope.selectedCategoriesList.push({ID: id, Name: catData.Name});
         }, function myError(response) {
             // debugger;
             console.log(response);
@@ -85,7 +88,35 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$location
             console.log("FAILURE!");
             $scope.myWelcome = response.statusText;
         });
-    }
+    };
+
+    $scope.changeCategories = function(category) {
+        for (let i = 0; i < $scope.selectedCategoriesList.length; i++) {
+            if ($scope.selectedCategoriesList[i].ID === category.ID) {
+                $scope.selectedCategoriesList.splice(i, 1);
+                return;
+            }
+        }
+        $scope.selectedCategoriesList.push(category);
+    };
+
+    $scope.filterSelectedCategories = function (item) {
+        for (let i = 0; i < $scope.selectedCategoriesList.length; i++) {
+            if ($scope.selectedCategoriesList[i].ID === item.ID) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    $scope.filterSelectedCategoriesForRanks = function (item) {
+        for (let i = 0; i < $scope.selectedCategoriesList.length; i++) {
+            if ($scope.selectedCategoriesList[i].ID === item.CategoryID) {
+                return true;
+            }
+        }
+        return false;
+    };
 
     $scope.openImage = function () {
         $http({
