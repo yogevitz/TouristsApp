@@ -1,10 +1,5 @@
 var DButilsAzure = require('./DButils');
 var jwt = require("jsonwebtoken");
-let firstTime1 = true;
-let firstTime2 = true;
-let firstTime3 = true;
-let firstTime4 = true;
-let firstTime5 = true;
 
 // login
 exports.login = (req, res) => {

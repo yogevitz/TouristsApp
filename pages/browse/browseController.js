@@ -178,7 +178,12 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
     $scope.changeFavorites = function(pointID) {
         let wasFavorite = false;
         let tmp = $window.sessionStorage.getItem('userFavPOIList');
-        let oldFavPOIList = tmp.split(",");
+        let oldFavPOIList;
+        if (tmp.length === 0) {
+            oldFavPOIList = [];
+        } else {
+            oldFavPOIList = tmp.split(",");
+        }
         let newFavPOIList = [];
         for (let i = 0; i < oldFavPOIList.length; i++) {
             let tmpPOI = parseInt(oldFavPOIList[i]);
@@ -187,10 +192,16 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
             } else {
                 newFavPOIList.push(tmpPOI);
             }
+            newFavPOIList = newFavPOIList.filter(function (value) {
+                return !Number.isNaN(value);
+            });
         }
         if (!wasFavorite) {
             newFavPOIList.push(pointID);
         }
+        newFavPOIList = newFavPOIList.filter(function (value) {
+            return !Number.isNaN(value);
+        });
         console.log(newFavPOIList);
         $window.sessionStorage.setItem('userFavPOIList', newFavPOIList.toString());
     };

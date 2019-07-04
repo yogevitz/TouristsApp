@@ -76,9 +76,10 @@ exports.getUserFavPOIListByName = (req, res) => {
 };
 
 // setUserSavedPOIList
-exports.setUserSavedPOIList = (req, res) => {
+exports.setUserSavedPOIList = async (req, res) => {
     let userID = req.decoded.id;
     let inputPointsList = req.body.Points;
+    inputPointsList = inputPointsList.split(',');
     // DATETIME FORMAT: 1993-12-17 10:00:00
     let now = new Date();
     let datetime = dateFormat(now, "isoDateTime");
@@ -88,10 +89,22 @@ exports.setUserSavedPOIList = (req, res) => {
         valuesToInsert += "('" + userID + "','" + inputPointsList[i] + "','" + datetime + "'),";
     }
     valuesToInsert = valuesToInsert.substr(0,valuesToInsert.length - 1);
-    DButilsAzure.execQuery(
-        "INSERT INTO UsersPoints" +
+    await DButilsAzure.execQuery(
+        "DELETE FROM UsersPoints " +
+        "WHERE UserID = '" + userID + "'")
+        .then(function(result){
+            // res.status(200).send({ result: "Points Deleted Successfully." });
+            console.log("Erased previous points")
+        })
+        .catch(function(err){
+            console.log(err);
+            res.send(err);
+            res.status(400).send({ result: "Failed." });
+        });
+    await DButilsAzure.execQuery(
+        "INSERT INTO UsersPoints " +
         "(UserID,PointID,Date) " +
-        "VALUES '" + valuesToInsert + "'")
+        "VALUES " + valuesToInsert)
         .then(function(result){
             res.status(200).send({ result: "Points Added Successfully." });
         })

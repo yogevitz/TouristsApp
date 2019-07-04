@@ -20,6 +20,51 @@
         max-width:90%;
         max-height:250px;
     }
+
+    .favoriteButton {
+        height: 30px;
+    }
+
+    /* Required Styling */
+
+    label input[type="checkbox"] {
+        display: none;
+    }
+
+    .custom-checkbox {
+
+        margin-left: 1em;
+        /*margin-left: 2em;*/
+        position: relative;
+        /*position: absolute;*/
+        cursor: pointer;
+        font-size: 30px;
+    }
+
+    .custom-checkbox .glyphicon {
+        color: gold;
+        position: absolute;
+        top: 0.4em;
+        left: -1.25em;
+        font-size: 0.75em;
+    }
+
+    .custom-checkbox .glyphicon-star-empty {
+        color: gray;
+    }
+
+    .custom-checkbox .glyphicon-star {
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .custom-checkbox:hover .glyphicon-star{
+        opacity: 0.5;
+    }
+
+    .custom-checkbox input[type="checkbox"]:checked ~ .glyphicon-star {
+        opacity: 1;
+    }
 </style>
 
 <div class="formPOIPage">
@@ -27,6 +72,10 @@
         <h2>Favorites</h2>
 <!--        <div class="spacing"></div>-->
         <div ng-show="existsConnectedUser" class="favoritesList">
+            <div>
+                <button type="button" class="btn btn-success" ng-click="saveFavPOIList()">Save Favorites List</button>
+            </div>
+            <div class="spacing"></div>
             <label>Sort by: </label>
             <div ng-init="sort='Categories'">
                 <input type="radio" ng-model="sort" value="Categories"> Categories
@@ -37,6 +86,16 @@
                 <div ng-switch-when="Categories" ng-repeat="(key, category) in favPointsCategoriesName | orderBy: 'Name'">
                     <h3><label ng-bind="category.Name"></label></h3>
                     <div ng-repeat="(key, point) in favPoints | filter : {CategoryID: category.ID}" class="searchResultsPointInCatOrder">
+
+                        <div class="favoriteButton" ng-show="existsConnectedUser">
+                            <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" ng-model="cb" ng-init="cb=initCB(point.ID)" ng-click="changeFavorites(point.ID)"/>
+                                <i class="glyphicon glyphicon-star-empty"></i>
+                                <i class="glyphicon glyphicon-star"></i>
+                            </label>
+                        </div>
+
                         <div ng-click="openPOI(point.ID)">
                             <a href="#!poi">
                                 <h4><span ng-bind="point.Name"></span></h4>
@@ -49,6 +108,16 @@
                 <div ng-switch-when="Ranks">
                     <div class="spacing"></div>
                     <div ng-repeat="(key, pointRank) in favPoints | orderBy: 'AverageRank' : true" class="searchResultsPointInRankOrder">
+
+                        <div class="favoriteButton" ng-show="existsConnectedUser">
+                            <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" ng-model="cb" ng-init="cb=initCB(pointRank.ID)" ng-click="changeFavorites(pointRank.ID)"/>
+                                <i class="glyphicon glyphicon-star-empty"></i>
+                                <i class="glyphicon glyphicon-star"></i>
+                            </label>
+                        </div>
+
                         <div ng-click="openPOI(pointRank.ID)">
                             <a href="#!poi">
                                 <h4><span ng-bind="pointRank.Name"></span></h4>
