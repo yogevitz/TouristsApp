@@ -1,8 +1,8 @@
 // poi controller
 // var app = angular.module("myApp");
 
-app.controller('browseController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties',
-    function($scope, $http, $rootScope, $location, sharedProperties) {
+app.controller('browseController', ['$scope', '$http', '$rootScope', '$window', '$location', 'sharedProperties',
+    function($scope, $http, $rootScope, $window, $location, sharedProperties) {
     self = this;
     $scope.noBrowse = false;
     $scope.selectedCategoriesList = [];
@@ -175,10 +175,41 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$location
         });
     };
 
+    $scope.changeFavorites = function(pointID) {
+        let wasFavorite = false;
+        let tmp = $window.sessionStorage.getItem('userFavPOIList');
+        let oldFavPOIList = tmp.split(",");
+        let newFavPOIList = [];
+        for (let i = 0; i < oldFavPOIList.length; i++) {
+            let tmpPOI = parseInt(oldFavPOIList[i]);
+            if (tmpPOI === pointID) {
+                wasFavorite = true;
+            } else {
+                newFavPOIList.push(tmpPOI);
+            }
+        }
+        if (!wasFavorite) {
+            newFavPOIList.push(pointID);
+        }
+        console.log(newFavPOIList);
+        $window.sessionStorage.setItem('userFavPOIList', newFavPOIList.toString());
+    };
+
+    $scope.initCB = function(id) {
+        if (!$rootScope.existsConnectedUser) {
+            return false;
+        }
+        let tmp = $window.sessionStorage.getItem('userFavPOIList');
+        let initFavPOIList = tmp.split(",");
+        for (let i = 0; i < initFavPOIList.length; i++) {
+            let tmpPOI = parseInt(initFavPOIList[i]);
+            if (tmpPOI === id) {
+                return true;
+            }
+        }
+        return false;
+    };
+
     $scope.searchPoints();
 
 }]);
-
-function fillSearchResults() {
-
-}
