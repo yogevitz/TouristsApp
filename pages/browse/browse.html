@@ -19,6 +19,10 @@
         max-height:250px;
     }
 
+    #mapid {
+        height: 400px;
+    }
+
     .spacing {
         height: 20px;
     }
@@ -72,16 +76,16 @@
 <div class="formPOIPage">
     <div align="center" class="container">
         <h2>Points of Interest</h2>
-        <div class="spacing"></div>
         <form class="form-inline md-form mr-auto mb-4">
             <input ng-model="searchInput" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-primary" type="submit" ng-click="searchPoints()">Search</button>
         </form>
         <div class="searchResults">
-            <label>Sort by: </label>
+            <label>Show points by: </label>
             <div ng-init="sort='Categories'">
                 <input type="radio" ng-model="sort" value="Categories"> Categories
                 <input type="radio" ng-model="sort" value="Ranks"> Ranks
+                <input type="radio" ng-model="sort" value="Map"> Map
             </div>
             <div class="spacing"></div>
             <span ng-repeat="cat in searchResultsCategoriesNames | orderBy: 'Name'">
@@ -133,6 +137,13 @@
                             </a>
                         </div>
                     </div>
+                </div>
+                <div ng-switch-when="Map">
+                    <div class="spacing"></div>
+                    <button ng-click="mapView()">OPEN MAP</button>
+                    <div class="spacing"></div>
+                    <div id="mapid"></div>
+                    <div class="spacing"></div>
                 </div>
             </div>
         </div>

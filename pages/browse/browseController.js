@@ -7,6 +7,94 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
     $scope.noBrowse = false;
     $scope.selectedCategoriesList = [];
 
+    $scope.mapView = function () {
+        var mymap = L.map('mapid').setView([41.900138, 12.497103], 10);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: 'mapbox.streets'
+        }).addTo(mymap);
+
+        //ART
+        let pointBorgheseGallery = L.marker([41.914185, 12.492196]);
+        let pointPiazzaNavona = L.marker([41.899306, 12.473062]);
+        let pointSantAngelo = L.marker([41.903057, 12.466351]);
+
+        //CULTURE
+        let pointColosseum = L.marker([41.890204, 12.492353]);
+        let pointVaticanCity = L.marker([41.902253, 12.457108]);
+        let pointBasilica = L.marker([41.902106, 12.453290]);
+        let pointTreviFountain = L.marker([41.901010, 12.483276]);
+        let pointPantheon = L.marker([41.898597, 12.476824]);
+        let pointSpanishSteps = L.marker([41.905992, 12.482743]);
+
+        //FOOD
+        let pointTonnarello = L.marker([41.889830, 12.469337]);
+        let pointLostFoodFactory = L.marker([41.900274, 12.476692]);
+        let pointVitalityFood = L.marker([41.904224, 12.503090]);
+
+        //MUSEUMS
+        let pointCapitolineMuseum = L.marker([41.892931, 12.482558]);
+        let pointRomanForum = L.marker([41.892456, 12.485342]);
+        let pointSistineChapel = L.marker([41.902938, 12.454483]);
+        let pointBathsOfDiocletian = L.marker([41.903633, 12.499947]);
+
+        //NATURE
+        let pointParcoSavello = L.marker([41.885832, 12.481205]);
+        let pointVoloAltoNaturePark = L.marker([41.950222, 12.323770]);
+        let pointParcoDellaCaffarella = L.marker([41.866648, 12.522467]);
+        let pointVillaBorghese = L.marker([41.912596, 12.482472]);
+        let pointAppiaAntica = L.marker([41.819396, 12.557307]);
+        let pointLakeCentralPark = L.marker([41.830276, 12.461508]);
+
+        //SPORT
+        let pointStadioOlimpico = L.marker([41.933947, 12.454770]);
+        let pointPiscinaDelleRose = L.marker([41.830954, 12.462505]);
+
+
+
+        //ART
+        pointBorgheseGallery.bindPopup("Borghese Gallery").addTo(mymap);
+        pointPiazzaNavona.bindPopup("Piazza Navona").addTo(mymap);
+        pointSantAngelo.bindPopup("Sant Angelo").addTo(mymap);
+
+        //CULTURE
+        pointColosseum.bindPopup("Colosseum").addTo(mymap);
+        pointVaticanCity.bindPopup("Vatican City").addTo(mymap);
+        pointBasilica.bindPopup("St. Peter's Basilica").addTo(mymap);
+        pointTreviFountain.bindPopup("Trevi Fountain").addTo(mymap);
+        pointPantheon.bindPopup("Pantheon").addTo(mymap);
+        pointSpanishSteps.bindPopup("Spanish Steps").addTo(mymap);
+
+        //FOOD
+        pointTonnarello.bindPopup("Tonnarello").addTo(mymap);
+        pointLostFoodFactory.bindPopup("Lost Food Factory").addTo(mymap);
+        pointVitalityFood.bindPopup("VitalityFood").addTo(mymap);
+
+        //MUSEUMS
+        pointCapitolineMuseum.bindPopup("Capitoline Museum").addTo(mymap);
+        pointRomanForum.bindPopup("Roman Forum").addTo(mymap);
+        pointSistineChapel.bindPopup("Sistine Chapel").addTo(mymap);
+        pointBathsOfDiocletian.bindPopup("Baths Of Diocletian").addTo(mymap);
+
+        //NATURE
+        pointParcoSavello.bindPopup("Parco Savello").addTo(mymap);
+        pointVoloAltoNaturePark.bindPopup("Volo Alto Nature Park").addTo(mymap);
+        pointParcoDellaCaffarella.bindPopup("Parco Della Caffarella").addTo(mymap);
+        pointVillaBorghese.bindPopup("Villa Borghese").addTo(mymap);
+        pointAppiaAntica.bindPopup("Appia Antica").addTo(mymap);
+        pointLakeCentralPark.bindPopup("Lake Central Park").addTo(mymap);
+
+        //SPORT
+        pointStadioOlimpico.bindPopup("Stadio Olimpico").addTo(mymap);
+        pointPiscinaDelleRose.bindPopup("Piscina Delle Rose").addTo(mymap);
+
+    };
+
+
     $scope.openPOI = function (id) {
         $rootScope.pointID = id;
     };
