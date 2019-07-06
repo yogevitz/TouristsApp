@@ -26,12 +26,46 @@
     }
 </style>
 
-<!--&lt;!&ndash; display all cities &ndash;&gt;-->
-<!--<p align="center" ng-repeat="(id, city) in poiCtrl.cities">-->
-<!--    City Name: <span ng-bind="city.name"></span><br>-->
-<!--    City Description: <span ng-bind="city.description"></span><br>-->
-<!--    <img align="center" ng-src="{{ city.image }}">-->
-<!--</p>-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center">Add Review</h4>
+            </div>
+            <div class="modal-body" ng-form="modalForm">
+                <br>
+                <div>
+                    <div>
+                        <label for="review"><b>Review:</b></label>
+                    </div>
+                    <div>
+                        <input ng-model="review" id="review" type="text" class="form-control" placeholder="Enter Your Review" name="review" required>
+                    </div>
+                </div>
+                </br>
+                <div style="text-align: center">
+                    <div>
+                        <label for="rank"><b>Rank:</b></label>
+                    </div>
+                    <div>
+                        <select ng-model="rank" id="rank" name="rank" ng-options="col for col in ranks" required></select>
+                    </div>
+                </div>
+                </br>
+                </br>
+                <div style="text-align: center">
+                    <button id="submit" ng-disabled="!modalForm.$valid" ng-click="addReviews()" type="submit" class="btn btn-primary" style="">Add review</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="formPOIPage">
     <div align="center" class="container">
@@ -62,6 +96,11 @@
             {{pointAverageRank}}
         </div>
         <hr>
+
+        <div ng-show="existsConnectedUser">
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Review</button>
+        </div>
+
         <div>
             <h3>Recent Reviews</h3>
         </div>

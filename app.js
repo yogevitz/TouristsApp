@@ -109,3 +109,6 @@ app.get('/getAllCategories', categoriesRequests.getAllCategories);
 
 // addReview
 app.use('/private/addReview', reviewsRequests.addReview);
+
+//add viewers
+app.post('/addViewers', pointsRequests.addViewers);

@@ -193,6 +193,22 @@ exports.get3RandomPOIs = (req, res) => {
         })
         .catch(function(err){
             console.log(err);
-            res.send(err);Z
+            res.send(err);
         })
+};
+
+// addViewers
+exports.addViewers = async (req, res) => {
+    let inputPointID = req.body.ID;
+    await DButilsAzure.execQuery(
+        "UPDATE Points " +
+        "SET Viewers = Viewers + 1 " +
+        "WHERE ID = '" + inputPointID + "'")
+        .then(function (result) {
+            console.log("Update Number Of Viewers.")
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.send(err);
+        });
 };

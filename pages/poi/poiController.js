@@ -1,11 +1,19 @@
 // poi controller
 // var app = angular.module("myApp");
 
-app.controller('poiController', ['$scope', '$http', '$rootScope', '$location', 'sharedProperties', function($scope, $http, $rootScope, $location, sharedProperties) {
+app.controller('poiController', ['$scope', '$http', '$rootScope', '$window', '$location', 'sharedProperties', function($scope, $http, $rootScope, $window, $location, sharedProperties) {
     self = this;
 
-    $scope.openImage = function () {
-        $http({
+    $scope.ranks = [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+    ];
+
+    $scope.openImage = async function () {
+        await $http({
             method: "GET",
             url: 'http://localhost:3000/getPOIInfo/' + $rootScope.pointID,
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
@@ -26,7 +34,7 @@ app.controller('poiController', ['$scope', '$http', '$rootScope', '$location', 
             $scope.myWelcome = response.statusText;
         });
 
-        $http({
+        await $http({
             method: "GET",
             url: 'http://localhost:3000/getPOI2RecentReviews/' + $rootScope.pointID,
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
@@ -59,8 +67,47 @@ app.controller('poiController', ['$scope', '$http', '$rootScope', '$location', 
             console.log("FAILURE!");
             $scope.myWelcome = response.statusText;
         });
+        let pointID = {ID: $rootScope.pointID};
+        await $http({
+            method: "POST",
+            url: 'http://localhost:3000/addViewers',
+            data: pointID,
+            headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+        }).then(function mySuccess(response) {
+            console.log("SUCCESS Added Viewers!");
+            // window.alert("Added Viewers!");
+            // let resultData = response.data[0];
+        }, function myError(response){
+            console.log(response);
+            console.log("FAILURE Added Viewers!");
+        });
+
     };
 
     $scope.openImage();
+
+    $scope.addReviews = function () {
+        let reviewData = {
+            PointID: $rootScope.pointID,
+            ReviewText: $scope.review,
+            ReviewRank: $scope.rank
+        };
+        $http({
+            method: "POST",
+            url: 'http://localhost:3000/private/addReview',
+            data: reviewData,
+            headers: {"Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept",
+                "x-auth-token": $window.sessionStorage.getItem("userToken")}
+        }).then(function mySuccess(response) {
+            console.log("SUCCESS!");
+            console.log("SUCCESS adding review!");
+            window.alert("Review Was Added successfuly!");
+            $scope.close();
+        }, function myError(response) {
+            console.log(response);
+            console.log("FAILURE!");
+        });
+    };
 
 }]);

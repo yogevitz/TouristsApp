@@ -9,9 +9,11 @@ exports.addReview = (req, res) => {
         .then(function(result){
             newReviewID = 1 + result[0].c;
             req.reviewID = newReviewID;
+            console.log("add 1 done");
             addReview2(req, res);
         })
         .catch(function(err){
+            console.log("add 1 failed");
             console.log(err);
             res.send(err)
         });
@@ -39,12 +41,14 @@ addReview2 = (req, res) => {
         "'" + inputReviewRank +
         "')")
         .then(function(result){
+            console.log("add 2 done");
             addReview3(req, res);
         })
         .catch(function(err){
+            console.log("add 2 failed");
             console.log(err);
             res.send(err);
-            res.status(400).send({ result: "Failed." });
+            res.status(200).send({ result: "Failed." });
         })
 };
 
@@ -59,13 +63,13 @@ addReview3 = (req, res) => {
         "Rankers = Rankers + 1 " +
         "WHERE ID = '" + inputPointID + "'")
         .then(function(result){
+            console.log("add 3 done");
             res.status(200).send({ result: "Review Submitted Successfully." });
         })
         .catch(function(err){
+            console.log("add 3 failed");
             console.log(err);
             res.send(err);
-            res.status(400).send({ result: "Failed." });
+            res.status(200).send({ result: "Failed." });
         })
 };
-
-
