@@ -128,6 +128,7 @@ app.controller('favoritesController', ['$scope', '$http', '$rootScope', '$windo
                 return !Number.isNaN(value);
             });
             console.log(newFavPOIList);
+            $rootScope.numOfFavorites = newFavPOIList.length;
             $window.sessionStorage.setItem('userFavPOIList', newFavPOIList.toString());
         };
 
