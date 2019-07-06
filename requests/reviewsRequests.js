@@ -1,4 +1,4 @@
-var DButilsAzure = require('./DButils');
+var DButilsAzure = require('../DButils');
 var dateFormat = require('dateformat');
 
 // addReview

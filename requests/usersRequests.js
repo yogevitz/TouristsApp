@@ -1,4 +1,4 @@
-var DButilsAzure = require('./DButils');
+var DButilsAzure = require('../DButils');
 var jwt = require("jsonwebtoken");
 
 // login

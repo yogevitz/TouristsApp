@@ -1,4 +1,4 @@
-var DButilsAzure = require('./DButils');
+var DButilsAzure = require('../DButils');
 
 // getCategoryIDByCategoryName
 exports.getCategoryIDByCategoryName = (req, res) => {
