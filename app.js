@@ -3,10 +3,10 @@ var app = express();
 var jwt = require("jsonwebtoken");
 // var dateFormat = require('dateformat');
 var DButilsAzure = require('./DButils');
-var userRequests = require('./usersRequests');
-var pointsRequests = require('./pointsRequests');
-var reviewsRequests = require('./reviewsRequests');
-var categoriesRequests = require('./categoriesRequests');
+var userRequests = require('./requests/usersRequests');
+var pointsRequests = require('./requests/pointsRequests');
+var reviewsRequests = require('./requests/reviewsRequests');
+var categoriesRequests = require('./requests/categoriesRequests');
 
 var cors = require('cors');
 app.use(cors());

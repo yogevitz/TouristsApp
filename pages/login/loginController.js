@@ -33,6 +33,7 @@ angular.module("myApp")
                                     for (let i = 0; i < userFavPOIList.length; i++) {
                                         userFavPOIIDList.push(userFavPOIList[i].PointID);
                                     }
+                                    $rootScope.numOfFavorites = userFavPOIIDList.length;
                                     $window.sessionStorage.setItem('userFavPOIList', userFavPOIIDList.toString());
                                     console.log("Got the favorites list!");
                                     window.location.href = "#!"
