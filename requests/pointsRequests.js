@@ -198,9 +198,9 @@ exports.get3RandomPOIs = (req, res) => {
 };
 
 // addViewers
-exports.addViewers = async (req, res) => {
+exports.addViewers = (req, res) => {
     let inputPointID = req.body.ID;
-    await DButilsAzure.execQuery(
+    DButilsAzure.execQuery(
         "UPDATE Points " +
         "SET Viewers = Viewers + 1 " +
         "WHERE ID = '" + inputPointID + "'")
