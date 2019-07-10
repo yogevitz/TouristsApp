@@ -1,8 +1,12 @@
 // http controller
 angular.module("myApp")
-.controller('httpController', ['$scope','$http', '$location', function($scope, $http, $location) {
+.controller('httpController', ['$scope','$http', '$location','$window', function($scope, $http, $location, $window) {
 
     console.log('HTTP Controller');
+
+    $scope.logout = function () {
+        $window.location.reload();
+    };
 
     $http({
         method: "GET",

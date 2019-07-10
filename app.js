@@ -7,6 +7,8 @@ var userRequests = require('./requests/usersRequests');
 var pointsRequests = require('./requests/pointsRequests');
 var reviewsRequests = require('./requests/reviewsRequests');
 var categoriesRequests = require('./requests/categoriesRequests');
+var questionsRequests = require('./requests/questionsRequests');
+var countriesRequests = require('./requests/countriesRequests');
 
 var cors = require('cors');
 app.use(cors());
@@ -106,6 +108,12 @@ app.get('/getCategoryPOIs/:categoryID', categoriesRequests.getCategoryPOIs);
 
 // getAllCategories
 app.get('/getAllCategories', categoriesRequests.getAllCategories);
+
+// getAllQuestions
+app.get('/getAllQuestions', questionsRequests.getAllQuestions);
+
+// getAllCountries
+app.get('/getAllCountries', countriesRequests.getAllCountries);
 
 // addReview
 app.use('/private/addReview', reviewsRequests.addReview);

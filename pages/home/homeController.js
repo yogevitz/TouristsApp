@@ -113,6 +113,10 @@ app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '$
 
         }
 
+        $rootScope.logout = function () {
+            $window.location.reload();
+        };
+
 
 
     }]);

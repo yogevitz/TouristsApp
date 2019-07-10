@@ -1,45 +1,111 @@
 // register controller
 angular.module("myApp")
     .controller("registerController", function ($scope, $http) {
-        $scope.questions = [
-            "The name of your first dog",
-            "The name of your 3rd grade teacher",
-            "The name of your favorite book",
-            "The name of your favorite restaurant"
-        ];
 
-        $scope.countries = [
-            "Australia",
-            "Bolivia",
-            "China",
-            "Denemark",
-            "Israel",
-            "Latvia",
-            "Monaco",
-            "August",
-            "Norway",
-            "Panama",
-            "Switzerland",
-            "USA"
-        ];
+        //init countries
+        // $scope.countries = [
+        //     "Australia",
+        //     "Bolivia",
+        //     "China",
+        //     "Denemark",
+        //     "Israel",
+        //     "Latvia",
+        //     "Monaco",
+        //     "August",
+        //     "Norway",
+        //     "Panama",
+        //     "Switzerland",
+        //     "USA"
+        // ];
 
-        $scope.categories = [
-            { id: 1, name: "Food" },
-            { id: 2, name: "Sport" },
-            { id: 3, name: "Museums" },
-            { id: 4, name: "Culture" },
-            { id: 5, name: "Nature" },
-            { id: 6, name: "Art" }
-        ];
+        self.getAllCountries = function()
+        {
+            $http({
+                method: "GET",
+                url: 'http://localhost:3000/getAllCountries',
+                headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+            }).then(function mySuccess(response) {
+                    let countries = response.data;
+                    let listCountries = [];
+                    for (let i = 0; i < countries.length; i++) {
+                        listCountries.push(countries[i].Name);
+                    }
+                    $scope.countries = listCountries;
+                }
+                ,(function () {
+                    console.log("Error when getting countries");
+                }));
+        };
+
+
+        self.getAllCountries();
+
+        //init categories
+        // $scope.categories = [
+        //     { id: 1, name: "Food" },
+        //     { id: 2, name: "Sport" },
+        //     { id: 3, name: "Museums" },
+        //     { id: 4, name: "Culture" },
+        //     { id: 5, name: "Nature" },
+        //     { id: 6, name: "Art" }
+        // ];
+
+        ///to do get request
+        self.getAllCategories = function()
+        {
+            $http({
+                method: "GET",
+                url: 'http://localhost:3000/getAllCategories',
+                headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+            }).then(function mySuccess(response) {
+                    let categories = response.data;
+                    let listCategories = [];
+                    for (let i = 0; i < categories.length; i++) {
+                        listCategories.push({"id":i+1, "name":categories[i].Name});
+                    }
+                    $scope.categories = listCategories;
+                }
+                ,(function () {
+                    console.log("Error when getting categories");
+                }));
+        };
+
+
+        self.getAllCategories();
+
+        //init questions
+        // $scope.questions = [
+        //     "The name of your first dog",
+        //     "The name of your 3rd grade teacher",
+        //     "The name of your favorite book",
+        //     "The name of your favorite restaurant"
+        // ];
+
+        self.getAllQuestions = function()
+        {
+            $http({
+                method: "GET",
+                url: 'http://localhost:3000/getAllQuestions',
+                headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
+            }).then(function mySuccess(response) {
+                    let questions = response.data;
+                    let listQuestions = [];
+                    for (let i = 0; i < questions.length; i++) {
+                        listQuestions.push(questions[i].Text);
+                    }
+                    $scope.questions = listQuestions;
+                }
+                ,(function () {
+                    console.log("Error when getting questions");
+                }));
+        };
+
+        self.getAllQuestions();
+
 
         $scope.selectedCategories = [];
         var registerData = {};
-        $scope.questions = [
-            "The name of your first dog",
-            "The name of your 3rd grade teacher",
-            "The name of your favorite book",
-            "The name of your favorite restaurant"
-        ];
+
         let vm = this;
         vm.question1List = '';
         vm.question2List = '';

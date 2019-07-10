@@ -9,7 +9,8 @@
             <div>
                 <label for="firstName"><b>First Name</b></label>
             </div>
-            <div>
+            <div ng-form="FirstName">
+                <a ng-if="!FirstName.$valid" style="font-size: 12px;color: red">*</a>
                 <input ng-model="firstName" id="firstName" name="firstName" type="text" class="form-control" placeholder="Enter First Name"  required>
             </div>
         </div>
@@ -18,7 +19,8 @@
             <div>
                 <label for="lastName"><b>Last Name</b></label>
             </div>
-            <div>
+            <div ng-form="LastName">
+                <a ng-if="!LastName.$valid" style="font-size: 12px;color: red">*</a>
                 <input ng-model="lastName" id="lastName" name="lastName" type="text" class="form-control" placeholder="Enter Last Name" required>
             </div>
         </div>
@@ -27,7 +29,8 @@
             <div>
                 <label for="email"><b>Email</b></label>
             </div>
-            <div>
+            <div ng-form="Email">
+                <a ng-if="!Email.$valid" style="font-size: 12px;color: red">*</a>
                 <input ng-model="email" id="email" type="text" class="form-control" placeholder="Enter Email" name="email" required>
             </div>
         </div>
@@ -36,7 +39,8 @@
             <div>
                 <label for="country"><b>Country</b></label>
             </div>
-            <div>
+            <div ng-form="Country">
+                <a ng-if="!Country.$valid" style="font-size: 12px;color: red">*</a>
                 <select ng-model="country" id="country" name="country" ng-options="col for col in countries" required></select>
             </div>
         </div>
@@ -45,7 +49,8 @@
             <div>
                 <label for="city"><b>City</b></label>
             </div>
-            <div>
+            <div ng-form="City">
+                <a ng-if="!City.$valid" style="font-size: 12px;color: red">*</a>
                 <input ng-model="city" id="city" name="city" type="text" class="form-control" placeholder="Enter City" required>
             </div>
         </div>
@@ -54,7 +59,8 @@
             <div>
                 <label for="userName"><b>User Name</b></label>
             </div>
-            <div>
+            <div ng-form="UserName">
+                <a ng-if="!UserName.$valid" style="font-size: 12px;color: red">*</a>
                 <input ng-model="userName" id="userName" name="usernameInput" type="text" class="form-control" placeholder="Enter User Name" required>
             </div>
             <br>Please fill only letters between 3 to 8 letters
@@ -64,7 +70,8 @@
             <div>
                 <label for="psw"><b>Password</b></label>
             </div>
-            <div>
+            <div ng-form="Psw">
+                <a ng-if="!Psw.$valid" style="font-size: 12px;color: red">*</a>
                 <input  ng-model="psw" id="psw" type="password" class="form-control" placeholder="Enter Password" name="psw" required>
             </div>
             <br>Please fill only letters and numbers between 5 to 10 characters
@@ -75,24 +82,26 @@
                 <label><b>Security Questions</b></label>
             </div>
             <div>
-                <div>
+                <div ng-form="FirstAnswer">
                     <div>
                         <select
                                 required
                                 ng-model="vm.question1List"
                                 ng-options="col for col in questions|excludeUsed:vm.question2List">
                         </select>
+                        <a ng-if="!FirstAnswer.$valid" style="font-size: 12px;color: red">*</a>
                         <input ng-model="firstAnswer" id="firstAnswer" type="text" class="form-control" placeholder="Enter Answer" name="firstAnswer" required>
                     </div>
                 </div>
                 </br>
-                <div>
-                    <div>
+                <div ng-form="SecondAnswer">
+                    <div >
                         <select
                                 required
                                 ng-model="vm.question2List"
                                 ng-options="col for col in questions|excludeUsed:vm.question1List">
                         </select>
+                        <a ng-if="!SecondAnswer.$valid" style="font-size: 12px;color: red">*</a>
                         <input ng-model="secondAnswer" id="secondAnswer" type="text" class="form-control" placeholder="Enter Answer" name="secondAnswer" required>
                     </div>
                 </div>
@@ -103,7 +112,7 @@
             <div>
                 <label><b>Categories</b></label>
             </div>
-            <div ng-repeat="(key, val) in categories">
+            <div ng-repeat="(key, val) in categories" >
                 <input ng-id="categories" type="checkbox" ng-model="selectedCategories[val.id]"
                        name="group[]" id="group[{{val.id}}]"
                        ng-change='changeCheckbox();' /> {{val.name}}
@@ -111,7 +120,8 @@
         </div>
         </br>
         <p>By creating an account you agree to our <a target="_blank" href="https://www.termsfeed.com/blog/wp-content/uploads/2019/04/terms-and-conditions-template.pdf">Terms & Privacy</a>.</p>
-
+        <h1 ng-if="!registerForm.$valid" style="font-size: 25px;color: red">You Must Fill In All Fields</h1>
+        </br>
         <input id="submit" ng-disabled="!registerForm.$valid" ng-click="register" type="submit" class="btn-primary" value="Register">
 
     </div>

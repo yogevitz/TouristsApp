@@ -42,8 +42,9 @@
         <!-- menu -->
         <div class="menu">
             <a href="#!">Home</a>
-            <a href="#!login">Login</a>
-            <a href="#!register">Register</a>
+            <a ng-show="!existsConnectedUser" href="#!login">Login/Register</a>
+            <a ng-click="logout()" ng-show="existsConnectedUser" href="#!" >LogOut</a>
+<!--            <a href="#!register">Register</a>-->
 <!--            <a href="#!poi">POI</a>-->
             <a href="#!browse">Browse</a>
             <a ng-show="existsConnectedUser" href="#!favorites">Favorites({{numOfFavorites}})</a>
