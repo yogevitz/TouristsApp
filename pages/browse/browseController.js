@@ -265,6 +265,8 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
             let pointBorgheseGallery = L.marker([41.914185, 12.492196],{icon: greenIcon});
             let pointPiazzaNavona = L.marker([41.899306, 12.473062],{icon: greenIcon});
             let pointSantAngelo = L.marker([41.903057, 12.466351],{icon: greenIcon});
+            let pointRossoCinabro = L.marker([41.908401, 12.498213],{icon: greenIcon});
+            let pointTempleUniversity = L.marker([41.914472, 12.472095],{icon: greenIcon});
 
             //CULTURE
             let pointColosseum = L.marker([41.890204, 12.492353],{icon: blueIcon});
@@ -278,12 +280,15 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
             let pointTonnarello = L.marker([41.889830, 12.469337],{icon: yellowIcon});
             let pointLostFoodFactory = L.marker([41.900274, 12.476692],{icon: yellowIcon});
             let pointVitalityFood = L.marker([41.904224, 12.503090],{icon: yellowIcon});
+            let pointKathmanduFastFood = L.marker([41.893943, 12.502698],{icon: yellowIcon});
+            let pointPizzarium = L.marker([41.906669, 12.446684],{icon: yellowIcon});
 
             //MUSEUMS
             let pointCapitolineMuseum = L.marker([41.892931, 12.482558],{icon: redIcon});
             let pointRomanForum = L.marker([41.892456, 12.485342],{icon: redIcon});
             let pointSistineChapel = L.marker([41.902938, 12.454483],{icon: redIcon});
             let pointBathsOfDiocletian = L.marker([41.903633, 12.499947],{icon: redIcon});
+            let pointVigamus = L.marker([41.916774, 12.459712],{icon: redIcon});
 
             //NATURE
             let pointParcoSavello = L.marker([41.885832, 12.481205],{icon: greenIcon});
@@ -296,12 +301,17 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
             //SPORT
             let pointStadioOlimpico = L.marker([41.933947, 12.454770],{icon: yellowIcon});
             let pointPiscinaDelleRose = L.marker([41.830954, 12.462505],{icon: yellowIcon});
+            let pointTrastevereStadium = L.marker([41.881742, 12.450861],{icon: yellowIcon});
+            let pointAcademyQualcioRoma = L.marker([41.870987, 12.569290],{icon: yellowIcon});
+            let pointSportsStore = L.marker([41.901874, 12.494664],{icon: yellowIcon});
 
 
             //ART
             pointBorgheseGallery.bindPopup("Borghese Gallery").addTo(mymap);
             pointPiazzaNavona.bindPopup("Piazza Navona").addTo(mymap);
             pointSantAngelo.bindPopup("Sant Angelo").addTo(mymap);
+            pointRossoCinabro.bindPopup("Rosso Cinabro").addTo(mymap);
+            pointTempleUniversity.bindPopup("Temple University of Art").addTo(mymap);
 
             //CULTURE
             pointColosseum.bindPopup("Colosseum").addTo(mymap);
@@ -315,12 +325,15 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
             pointTonnarello.bindPopup("Tonnarello").addTo(mymap);
             pointLostFoodFactory.bindPopup("Lost Food Factory").addTo(mymap);
             pointVitalityFood.bindPopup("VitalityFood").addTo(mymap);
+            pointKathmanduFastFood.bindPopup("Kathmandu Fast Food").addTo(mymap);
+            pointPizzarium.bindPopup("Pizzarium").addTo(mymap);
 
             //MUSEUMS
             pointCapitolineMuseum.bindPopup("Capitoline Museum").addTo(mymap);
             pointRomanForum.bindPopup("Roman Forum").addTo(mymap);
             pointSistineChapel.bindPopup("Sistine Chapel").addTo(mymap);
             pointBathsOfDiocletian.bindPopup("Baths Of Diocletian").addTo(mymap);
+            pointVigamus.bindPopup("Vigamus Museum of Art").addTo(mymap);
 
             //NATURE
             pointParcoSavello.bindPopup("Parco Savello").addTo(mymap);
@@ -333,6 +346,9 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
             //SPORT
             pointStadioOlimpico.bindPopup("Stadio Olimpico").addTo(mymap);
             pointPiscinaDelleRose.bindPopup("Piscina Delle Rose").addTo(mymap);
+            pointTrastevereStadium.bindPopup("Trastevere Stadium").addTo(mymap);
+            pointAcademyQualcioRoma.bindPopup("Academy Qualcio Roma").addTo(mymap);
+            pointSportsStore.bindPopup("Sports Store").addTo(mymap);
 
         };
 
