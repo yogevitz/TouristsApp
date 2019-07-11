@@ -34,7 +34,6 @@ angular.module("myApp")
                             $scope.content = response.data;
                             let password = response.data["Password"];
                             window.alert("Your Password is: " + password);
-                            console.log("SUCCESS RESTORE!");
                             window.location.href = "#!login";
                         }
                     }

@@ -18,7 +18,7 @@
     }
     .favoritesImage {
         display: table-cell;
-        background-color: #b2ffaa;
+        background-color: #ffc6f5;
     }
     .populars {
         display: table;
@@ -28,11 +28,55 @@
     }
     .popularsImage {
         display: table-cell;
-        background-color: #fffc5b;
+        background-color: #ffc589;
     }
     img {
         max-width:90%;
         max-height:90%;
+    }
+    .favoriteButton {
+        height: 30px;
+    }
+
+    /* Required Styling */
+
+    label input[type="checkbox"] {
+        display: none;
+    }
+
+    .custom-checkbox {
+
+        margin-left: 1em;
+        /*margin-left: 2em;*/
+        position: relative;
+        /*position: absolute;*/
+        cursor: pointer;
+        font-size: 30px;
+    }
+
+    .custom-checkbox .glyphicon {
+        color: #fffc5b;
+        position: absolute;
+        top: 0.4em;
+        left: -1.25em;
+        font-size: 0.75em;
+    }
+
+    .custom-checkbox .glyphicon-star-empty {
+        color: gray;
+    }
+
+    .custom-checkbox .glyphicon-star {
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .custom-checkbox:hover .glyphicon-star{
+        opacity: 0.5;
+    }
+
+    .custom-checkbox input[type="checkbox"]:checked ~ .glyphicon-star {
+        opacity: 1;
     }
 </style>
 <div class="formHomePaged">
@@ -80,12 +124,32 @@
             </div>
             <div class="favorites">
                 <div ng-click="openPOI(lastSavedImage1ID)" class="favoritesImage">
+
+                    <div class="favoriteButton" ng-show="existsConnectedUser">
+                        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" ng-model="cb1" ng-init="cb1=true" ng-click="changeFavorites(lastSavedImage1ID)"/>
+                            <i class="glyphicon glyphicon-star-empty"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                        </label>
+                    </div>
+
                     <a href="#!poi">
                         <h4>{{lastSavedImage1Label}}</h4>
                         <img src="{{lastSavedImage1Image}}">
                     </a>
                 </div>
                 <div ng-click="openPOI(lastSavedImage2ID)" class="favoritesImage">
+
+                    <div class="favoriteButton" ng-show="existsConnectedUser">
+                        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" ng-model="cb2" ng-init="cb2=true" ng-click="changeFavorites(lastSavedImage2ID)"/>
+                            <i class="glyphicon glyphicon-star-empty"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                        </label>
+                    </div>
+
                     <a href="#!poi">
                         <h4>{{lastSavedImage2Label}}</h4>
                         <img src="{{lastSavedImage2Image}}">
@@ -97,12 +161,32 @@
             </div>
             <div class="populars">
                 <div ng-click="openPOI(popularImage1ID)" class="popularsImage">
+
+                    <div class="favoriteButton" ng-show="existsConnectedUser">
+                        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" ng-model="cb3" ng-init="cb3=true" ng-click="changeFavorites(lastSavedImage1ID)"/>
+                            <i class="glyphicon glyphicon-star-empty"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                        </label>
+                    </div>
+
                     <a href="#!poi">
                         <h4>{{popularImage1Label}}</h4>
                         <img src="{{popularImage1Image}}">
                     </a>
                 </div>
                 <div ng-click="openPOI(popularImage2ID)" class="popularsImage">
+
+                    <div class="favoriteButton" ng-show="existsConnectedUser">
+                        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" ng-model="cb4" ng-init="cb4=false" ng-click="changeFavorites(lastSavedImage1ID)"/>
+                            <i class="glyphicon glyphicon-star-empty"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                        </label>
+                    </div>
+
                     <a href="#!poi">
                         <h4>{{popularImage2Label}}</h4>
                         <img src="{{popularImage2Image}}">

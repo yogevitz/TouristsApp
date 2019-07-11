@@ -94,7 +94,6 @@ exports.setUserSavedPOIList = async (req, res) => {
         "WHERE UserID = '" + userID + "'")
         .then(function(result){
             // res.status(200).send({ result: "Points Deleted Successfully." });
-            console.log("Erased previous points")
         })
         .catch(function(err){
             console.log(err);
@@ -205,7 +204,6 @@ exports.addViewers = (req, res) => {
         "SET Viewers = Viewers + 1 " +
         "WHERE ID = '" + inputPointID + "'")
         .then(function (result) {
-            console.log("Update Number Of Viewers.")
         })
         .catch(function (err) {
             console.log(err);

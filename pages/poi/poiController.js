@@ -18,7 +18,6 @@ app.controller('poiController', ['$scope', '$http', '$rootScope', '$window', '$
             url: 'http://localhost:3000/getPOIInfo/' + $rootScope.pointID,
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
         }).then(function mySuccess(response) {
-            console.log("SUCCESS!");
             let pointData = response.data[0];
             $scope.pointName = pointData["Name"];
             $scope.pointImage = "images" + pointData["Image"];
@@ -39,7 +38,6 @@ app.controller('poiController', ['$scope', '$http', '$rootScope', '$window', '$
             url: 'http://localhost:3000/getPOI2RecentReviews/' + $rootScope.pointID,
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
         }).then(function mySuccess(response) {
-            console.log("SUCCESS!");
             let pointReview1Data, pointReview2Data;
             $scope.review1Exists = false;
             $scope.review2Exists = false;
@@ -74,7 +72,6 @@ app.controller('poiController', ['$scope', '$http', '$rootScope', '$window', '$
             data: pointID,
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
         }).then(function mySuccess(response) {
-            console.log("SUCCESS Added Viewers!");
             // window.alert("Added Viewers!");
             // let resultData = response.data[0];
         }, function myError(response){
@@ -100,9 +97,7 @@ app.controller('poiController', ['$scope', '$http', '$rootScope', '$window', '$
                 "Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept",
                 "x-auth-token": $window.sessionStorage.getItem("userToken")}
         }).then(function mySuccess(response) {
-            console.log("SUCCESS!");
-            console.log("SUCCESS adding review!");
-            window.alert("Review Was Added successfuly!");
+            window.alert("Review added successfully!");
             $scope.close();
         }, function myError(response) {
             console.log(response);

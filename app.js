@@ -44,7 +44,7 @@ app.use("/private", (req, res, next) => {
     try {
         req.decoded = jwt.verify(token, secret);
         next();
-        console.log("authenticated");
+        // console.log("authenticated");
     } catch (exception) {
         res.status(400).send("Invalid token.");
     }

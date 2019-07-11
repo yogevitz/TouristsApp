@@ -175,9 +175,7 @@ angular.module("myApp")
                     url: 'http://localhost:3000/register',
                     data: registerData
                 }).then(function a(response) {
-                    console.log("IDO3");
                 }, function b(response) {
-                    console.log("IDO5");
                 });
 
                 window.location.href = "#!login";

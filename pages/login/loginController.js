@@ -19,7 +19,6 @@ angular.module("myApp")
                             // $window.sessionStorage.setItem('userName', $scope.userName);
                             $rootScope.userName = $scope.userName;
                             // $rootScope.userToken = response.data;
-                            console.log("SUCCESS LOGIN!");
 
                             $http({
                                 method: "GET",
@@ -35,7 +34,7 @@ angular.module("myApp")
                                     }
                                     $rootScope.numOfFavorites = userFavPOIIDList.length;
                                     $window.sessionStorage.setItem('userFavPOIList', userFavPOIIDList.toString());
-                                    console.log("Got the favorites list!");
+                                    // console.log("Got the favorites list!");
                                     window.location.href = "#!"
                                 }
                                 ,(function () {

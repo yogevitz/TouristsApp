@@ -9,6 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        .menuLabel { font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+    </style>
 </head>
 <body ng-app="myApp" style="font-style: italic">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -36,21 +39,20 @@
     <script src="pages/restorePassword/restorePasswordController.js"></script>
 
     <!-- the website -->
-    <div class="jumbotron text-center" style="position: fixed; margin: auto;padding: 0;overflow: hidden; z-index:99999; width: 100%;height:135px;align-content: center;display:inline-block;">
+    <div class="jumbotron text-center" style="position: fixed; background: #b9ffda; margin: auto;padding: 0;overflow: hidden; z-index:99999; width: 100%;height:135px;align-content: center;display:inline-block;">
         <h1>Rome</h1>
-
         <!-- menu -->
         <div class="menu">
-            <a href="#!">Home</a>
-            <a ng-show="!existsConnectedUser" href="#!login">Login/Register</a>
-            <a ng-click="logout()" ng-show="existsConnectedUser" href="#!" >LogOut</a>
+            <a href="#!" class="menuLabel">Home</a>
+<!--            <a ng-show="!existsConnectedUser" href="#!login">Sign In</a>-->
 <!--            <a href="#!register">Register</a>-->
-<!--            <a href="#!poi">POI</a>-->
-            <a href="#!browse">Browse</a>
-            <a ng-show="existsConnectedUser" href="#!favorites">Favorites({{numOfFavorites}})</a>
-<!--            <a href="#!httpRequest">Http</a>-->
-            <a href="#!about">About</a>
-<!--            <a href="#!restorePassword"></a>-->
+            <!--            <a href="#!poi">POI</a>-->
+            <a href="#!browse" class="menuLabel">Browse</a>
+            <a ng-show="existsConnectedUser" class="menuLabel" href="#!favorites">Favorites({{numOfFavorites}})</a>
+            <!--            <a href="#!httpRequest">Http</a>-->
+            <a href="#!about" class="menuLabel">About</a>
+            <a ng-click="logout()" class="menuLabel" ng-show="existsConnectedUser" href="#!" >Exit</a>
+            <!--            <a href="#!restorePassword"></a>-->
         </div>
     </div>
     </br>

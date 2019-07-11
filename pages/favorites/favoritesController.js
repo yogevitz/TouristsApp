@@ -29,7 +29,6 @@ app.controller('favoritesController', ['$scope', '$http', '$rootScope', '$windo
                         headers: {"Access-Control-Allow-Origin": "*",
                             "Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
                     }).then(function mySuccess(response) {
-                        console.log("SUCCESS!");
                         let resultData = response.data[0];
                         let pointName = resultData["Name"];
                         let pointImage = resultData["Image"];
@@ -73,7 +72,6 @@ app.controller('favoritesController', ['$scope', '$http', '$rootScope', '$windo
                 headers: {"Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
             }).then(function mySuccess(response) {
-                console.log("SUCCESS!");
                 let resultData = response.data[0];
                 let pointName = resultData["Name"];
                 let pointImage = resultData["Image"];
@@ -158,7 +156,6 @@ app.controller('favoritesController', ['$scope', '$http', '$rootScope', '$windo
                     "Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept",
                     "x-auth-token": $window.sessionStorage.getItem("userToken")}
             }).then(function mySuccess(response) {
-                console.log("SUCCESS!");
                 window.alert("Favorites List Saved!");
                 // let resultData = response.data[0];
             }, function myError(response) {

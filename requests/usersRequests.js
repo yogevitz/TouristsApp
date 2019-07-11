@@ -57,7 +57,7 @@ exports.register = async (req, res) => {
             if (result[0].c > 0) {
                 console.log(err);
             } else {
-                console.log("Valid UserName and Email");
+                // console.log("Valid UserName and Email");
             }
         })
         .catch(function (err) {
@@ -93,7 +93,7 @@ exports.register = async (req, res) => {
         "'" + 0 + "'" +
         ")")
         .then(function (result) {
-            console.log("Inserted a new row to the Users table.")
+            // console.log("Inserted a new row to the Users table.")
         })
         .catch(function (err) {
             console.log(err);
@@ -114,7 +114,7 @@ exports.register = async (req, res) => {
         "(UserID,CategoryID) " +
         "VALUES " + valuesToInsert)
         .then(function (result) {
-            console.log("Inserted a new row to the UsersCategories table.")
+            // console.log("Inserted a new row to the UsersCategories table.")
         })
         .catch(function (err) {
             console.log(err);
@@ -137,7 +137,7 @@ exports.register = async (req, res) => {
         "(UserID,QuestionID,Answer) " +
         "VALUES " + valuesToInsert)
         .then(function (result) {
-            console.log("Inserted a new row to the UsersQuestionsAnswers table.");
+            // console.log("Inserted a new row to the UsersQuestionsAnswers table.");
             // res.status(200);
             res.status(200).send({result: "Registered Successfully."});
         })

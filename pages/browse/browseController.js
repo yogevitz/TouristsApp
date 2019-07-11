@@ -24,7 +24,6 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
                 url: 'http://localhost:3000/getPOIListByName/' + $scope.searchInput,
                 headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
             }).then(function mySuccess(response) {
-                console.log("SUCCESS!");
                 $scope.results = response.data;
                 if (response.data.length === 0) {
                     $scope.noBrowse = true;
@@ -72,7 +71,6 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
             url: 'http://localhost:3000/getAllPOI',
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
         }).then(function mySuccess(response) {
-            console.log("SUCCESS!");
             $scope.results = response.data;
             $scope.searchResultsPoints = response.data;
             $scope.searchResultsCategories = [];
@@ -124,7 +122,6 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
             url: 'http://localhost:3000/getPOIInfo/' + $rootScope.pointID,
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
         }).then(function mySuccess(response) {
-            console.log("SUCCESS!");
             let pointData = response.data[0];
             $scope.pointName = pointData["Name"];
             $scope.pointImage = "images" + pointData["Image"];
@@ -145,7 +142,6 @@ app.controller('browseController', ['$scope', '$http', '$rootScope', '$window',
             url: 'http://localhost:3000/getPOI2RecentReviews/' + $rootScope.pointID,
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
         }).then(function mySuccess(response) {
-            console.log("SUCCESS!");
             let pointReview1Data, pointReview2Data;
             $scope.review1Exists = false;
             $scope.review2Exists = false;

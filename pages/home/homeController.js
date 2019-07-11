@@ -4,8 +4,6 @@
 app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '$location', 'sharedProperties',
     function($scope, $http, $rootScope, $window, $location, sharedProperties) {
 
-        console.log('Home Controller');
-
         $scope.openPOI = function (id) {
             $rootScope.pointID = id;
         };
@@ -15,7 +13,6 @@ app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '$
             url: 'http://localhost:3000/get3RandomPOIs',
             headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept"}
         }).then(function mySuccess(response) {
-            console.log("SUCCESS!");
             let exploreImagesData = response.data;
             let exploreImage1Data = exploreImagesData[0];
             let exploreImage2Data = exploreImagesData[1];
@@ -47,7 +44,6 @@ app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '$
                     "Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept",
                     "x-auth-token": $window.sessionStorage.getItem("userToken")}
             }).then(function mySuccess(response) {
-                console.log("SUCCESS!");
                 // $scope.popularImage1Label = "";
                 // $scope.popularImage1ID = "";
                 // $scope.popularImage1Image = "";
@@ -83,7 +79,6 @@ app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '$
                     "Access-Control-Allow-Headers": "Origin, X-Requested-With,Content-Type, Accept",
                     "x-auth-token": $window.sessionStorage.getItem("userToken")}
             }).then(function mySuccess(response) {
-                console.log("SUCCESS!");
                 // $scope.lastSavedImage1Label = "";
                 // $scope.lastSavedImage1ID = "";
                 // $scope.lastSavedImage1Image = "";
@@ -117,6 +112,32 @@ app.controller('homeController', ['$scope', '$http', '$rootScope', '$window', '$
             $window.location.reload();
         };
 
+        $scope.changeFavorites = function(pointID) {
+            let wasFavorite = false;
+            let tmp = $window.sessionStorage.getItem('userFavPOIList');
+            let oldFavPOIList = tmp.split(",");
+            let newFavPOIList = [];
+            for (let i = 0; i < oldFavPOIList.length; i++) {
+                let tmpPOI = parseInt(oldFavPOIList[i]);
+                if (tmpPOI === pointID) {
+                    wasFavorite = true;
+                } else {
+                    newFavPOIList.push(tmpPOI);
+                }
+                newFavPOIList = newFavPOIList.filter(function (value) {
+                    return !Number.isNaN(value);
+                });
+            }
+            if (!wasFavorite) {
+                newFavPOIList.push(pointID);
+            }
+            newFavPOIList = newFavPOIList.filter(function (value) {
+                return !Number.isNaN(value);
+            });
+            console.log(newFavPOIList);
+            $rootScope.numOfFavorites = newFavPOIList.length;
+            $window.sessionStorage.setItem('userFavPOIList', newFavPOIList.toString());
+        };
 
 
     }]);
